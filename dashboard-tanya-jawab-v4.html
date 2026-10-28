@@ -187,6 +187,43 @@ table.heat{border-collapse:separate;border-spacing:0;width:100%;min-width:720px;
 .heat .atag{margin-left:8px;font-size:10.5px;font-weight:600;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);border-radius:99px;padding:1px 7px}
 .heat .cntb{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:var(--bad);color:#fff;font-size:11px}
 
+/* Peta v4 */
+.mtool{display:flex;flex-wrap:wrap;gap:10px 22px;margin-bottom:12px}
+.mt-g{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.mt-g>span{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.mt-g .tabs button{display:inline-flex;align-items:center;gap:6px}
+.mt-g .tabs button i{width:8px;height:8px;border-radius:50%}
+.mt-g .tabs button b{font-weight:700;opacity:.8}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:start;margin-bottom:20px}
+.mapgrid .map{margin-bottom:10px;box-shadow:var(--glow)}
+.mapgrid .maplegend{margin:0}
+.map .ring{transform-box:fill-box;transform-origin:center;animation:mring 2.4s ease-out infinite}
+@keyframes mring{0%{transform:scale(1);opacity:.85}100%{transform:scale(2.4);opacity:0}}
+.map .pt.sel text.lb{fill:var(--gold);font-weight:700}
+.selp{border:1px solid var(--edge);border-radius:16px;padding:16px;background:rgb(255 255 255 / .03);min-height:300px;position:sticky;top:150px}
+:root[data-theme="light"] .selp{background:var(--surface-2)}
+.sp-h h3{font-size:18px;color:var(--ink);margin:2px 0 6px}
+.sp-h p{margin:0 0 10px;font-size:12.5px;color:var(--muted)}
+.sp-back{border:0;background:none;color:var(--accent-ink);font-size:12px;font-weight:700;padding:0;margin-bottom:8px;cursor:pointer}
+.sp-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.sp-list button{width:100%;display:flex;align-items:center;gap:10px;border:1px solid var(--edge);background:rgb(255 255 255 / .03);border-radius:10px;padding:8px 10px;cursor:pointer;text-align:left;color:var(--ink)}
+.sp-list button:hover{border-color:var(--navy);box-shadow:0 0 12px rgb(56 189 248 / .2)}
+.sp-list i{flex:none;width:10px;height:10px;border-radius:50%}
+.sp-list .nm{flex:1;min-width:0;font-weight:600;font-size:13px}
+.sp-list .nm small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+.sp-list .cntb{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:var(--bad);color:#fff;font-size:11.5px;box-shadow:0 0 10px rgb(255 93 108 / .4)}
+.sp-list em{font-style:normal;font-weight:700;font-size:13px}
+.sp-mets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:10px}
+.sp-mets div{border-radius:10px;padding:7px 9px;background:var(--none-bg);font-size:11px;color:var(--muted)}
+.sp-mets div b{display:flex;align-items:center;gap:4px;font-size:15px;color:var(--ink);margin-top:1px}
+.sp-mets div.good{background:var(--good-bg)} .sp-mets div.warn{background:var(--warn-bg)} .sp-mets div.bad{background:var(--bad-bg)}
+.sp-mets .sti{width:12px;height:12px}
+.sp-tr{margin:14px 0 12px}
+.sp-l{font-size:11.5px;font-weight:600;color:var(--muted)}
+.sp-why{margin:8px 0 0;font-size:12.5px}
+.sp-why b{display:block;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:1020px){.mapgrid{grid-template-columns:minmax(0,1fr)}.selp{position:static;min-height:0}}
+@media (prefers-reduced-motion:reduce){.map .ring{animation:none;display:none}}
 /* Batang progres MP vs MPP */
 .pbleg{margin:-2px 0 10px}
 .pbleg i.band{background:var(--good-bg);border:1px solid color-mix(in srgb,var(--good) 45%,transparent)}
@@ -663,15 +700,16 @@ section.block{border-radius:18px;box-shadow:var(--shadow);padding:20px}
     <div class="block-head">
       <div><div class="eyebrow">Halaman 2 · Kondisi cabang</div><h2>Cabang mana yang perlu diperhatikan?</h2><p class="answer" id="ansCabang"></p></div>
     </div>
-    <div class="maplegend">
-      <span><span class="pill good"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor"/><path d="M4.8 8.2l2.1 2.1 4.3-4.5" stroke="var(--surface)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Aman</span><span class="pill warn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l7 12.5H1z" fill="currentColor"/><path d="M8 6v3.6M8 11.6v.2" stroke="var(--surface)" stroke-width="1.8" stroke-linecap="round"/></svg>Mendekati batas</span><span class="pill bad"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor"/><path d="M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8" stroke="var(--surface)" stroke-width="1.8" stroke-linecap="round"/></svg>Perlu perhatian</span></span>
-      <span class="lg-item">Warna titik: status terburuk cabang</span>
-      <span class="lg-item"><i class="sz s1"></i><i class="sz s2"></i>Besar titik: jumlah manpower</span>
-      <span class="lg-item"><b class="nb">2</b>Angka: jumlah metrik merah</span>
-      <span class="lg-item">Lokasi perkiraan</span>
+    <div class="mtool">
+      <div class="mt-g"><span>Warnai menurut</span><div class="tabs" id="mapK"><button data-v="w" aria-pressed="true">Status terburuk</button><button data-v="0">MP vs MPP</button><button data-v="1">Lembur</button><button data-v="2">Turnover</button><button data-v="3">Prod. sales</button><button data-v="4">Prod. teknisi</button><button data-v="5">GP/EC</button></div></div>
+      <div class="mt-g"><span>Tampilkan</span><div class="tabs" id="mapF"><button data-v="all" aria-pressed="true">Semua <b></b></button><button data-v="bad"><i style="background:var(--bad)"></i>Perlu perhatian <b></b></button><button data-v="warn"><i style="background:var(--warn)"></i>Mendekati batas <b></b></button><button data-v="good"><i style="background:var(--good)"></i>Aman <b></b></button></div></div>
     </div>
-    <div class="map" id="map"></div>
-    <div class="maplist" id="mapList" aria-label="Daftar cabang"></div>
+    <div class="mapgrid">
+      <div><div class="map" id="map"></div>
+        <div class="maplegend"><span class="lg-item"><i class="sz s1"></i><i class="sz s2"></i>Besar titik: jumlah manpower</span><span class="lg-item"><b class="nb">2</b>Angka: jumlah metrik merah</span><span class="lg-item"><span class="pulse"></span>Berdenyut: perlu perhatian</span><span class="lg-item">Lokasi perkiraan</span></div>
+        <div class="maplist" id="mapList" aria-label="Daftar cabang"></div></div>
+      <aside class="selp" id="selPanel" aria-live="polite"></aside>
+    </div>
     <div class="tbl-head"><h3>Rincian enam metrik per cabang</h3><button class="reset" id="heatReset" type="button" hidden>Kembalikan urutan per area</button></div>
     <div class="tscroll"><table class="heat" id="heat"></table></div>
     <p class="note defnote">Batas aman: MP 95 sampai 105% dari MPP. Lembur di bawah 9,5% (batas 10%). Turnover YTD di bawah 8%. Produktivitas dan GP/EC dibanding median 24 cabang, merah apabila lebih dari 10% di bawah median.</p>
@@ -1145,50 +1183,75 @@ function relax(ns,gap,bd){for(let it=0;it<160;it++){let moved=false;
   for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){const a=ns[i],b=ns[j];let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||.01;const m=a.r+b.r+gap;
     if(d<m){const p=(m-d)/2;dx/=d;dy/=d;a.x-=dx*p;a.y-=dy*p;b.x+=dx*p;b.y+=dy*p;moved=true}}
   ns.forEach(n=>{n.x+=(n.ax-n.x)*.04;n.y+=(n.ay-n.y)*.04;if(bd){n.x=Math.min(bd.x1-n.r,Math.max(bd.x0+n.r,n.x));n.y=Math.min(bd.y1-n.r,Math.max(bd.y0+n.r,n.y))}});if(!moved&&it>20)break}}
+const MAPV={k:null,f:"all",sel:null};
+function nodeSt(r){return MAPV.k==null?worst(r):(r[MAPV.k].st||"good")}
 function renderMap(){
   const box=document.getElementById("map");if(!box||box.offsetParent===null&&!box.dataset.force)return;
-  const W=PETA.w,H=PETA.h,s=Math.max(.3,(box.clientWidth||900)/W),narrow=box.clientWidth<560;
+  const W=PETA.w,H=PETA.h,s=Math.max(.3,(box.clientWidth||900)/W),narrow=box.clientWidth<560,dark=document.documentElement.dataset.theme!=="light";
   const fs=(narrow?10:11.5)/s,rMin=(narrow?5:7)/s,rMax=(narrow?11:16)/s,ring=2/s;
-  const inScope=c=>!S.area||c.a===S.area;
   const maxMp=Math.max(...CAB.map(c=>mpTot(c.act)));
-  const nodes=CAB.map(c=>{const r=heatRow(c),[x,y]=pxy(c.lon,c.lat);return{c,st:worst(r),nb:r.filter(v=>v.st==="bad").length,mp:mpTot(c.act),
-    r:rMin+(rMax-rMin)*Math.sqrt(mpTot(c.act)/maxMp),x,y,ax:x,ay:y,smg:SMG.includes(c.n),on:inScope(c)}});
-  // inset Kota Semarang di Laut Jawa
+  const nodes=CAB.map(c=>{const r=heatRow(c),[x,y]=pxy(c.lon,c.lat),st=nodeSt(r);return{c,hr:r,st,nb:r.filter(v=>v.st==="bad").length,mp:mpTot(c.act),
+    r0:rMin+(rMax-rMin)*Math.sqrt(mpTot(c.act)/maxMp),x,y,ax:x,ay:y,smg:SMG.includes(c.n),on:(!S.area||c.a===S.area)&&(MAPV.f==="all"||MAPV.f===st)}});
+  nodes.forEach(n=>n.r=n.r0);
   const sm=nodes.filter(n=>n.smg),cx=sum(sm.map(n=>n.ax))/sm.length,cy=sum(sm.map(n=>n.ay))/sm.length;
-  const IW=narrow?300/s*.62:270,IH=narrow?210/s*.62:165,IX=Math.max(8/s,cx-IW-70),IY=8/s;
-  const Z=narrow?2.6:3,icx=IX+IW/2,icy=IY+IH/2+fs*.6;
+  const IW=narrow?300/s*.62:270,IH=narrow?210/s*.62:165,IX=Math.max(8/s,cx-IW-70),IY=8/s,Z=narrow?2.6:3,icx=IX+IW/2,icy=IY+IH/2+fs*.6;
   const ins=sm.map(n=>({...n,x:icx+(n.ax-cx)*Z,y:icy+(n.ay-cy)*Z,ax:icx+(n.ax-cx)*Z,ay:icy+(n.ay-cy)*Z}));
-  relax(ins,4/s,{x0:IX+70/s*0+fs*4.2,x1:IX+IW-fs*5.2,y0:IY+fs*2.4,y1:IY+IH-fs*1.6});
+  relax(ins,4/s,{x0:IX+fs*4.2,x1:IX+IW-fs*5.2,y0:IY+fs*2.4,y1:IY+IH-fs*1.6});
   const main=nodes.filter(n=>!n.smg);relax(main,3/s);
   const smMain=sm.map(n=>({...n,r:Math.max(3/s,n.r*.45)}));relax(smMain,1/s);
   const col=st=>css("--"+st),ink=st=>st==="warn"?"#2b1f00":"#ffffff";
   const dot=(n,lbl)=>{const side=LSIDE[n.c.n]||"r",dx=side==="l"?-(n.r+4/s):side==="r"?n.r+4/s:side==="tl"?n.r*.2:0,dy=side==="t"||side==="tl"?-(n.r+5/s):side==="b"?n.r+fs:fs*.35,anc=side==="l"||side==="tl"?"end":side==="r"?"start":"middle";
-    const tip=`Nasmoco ${n.c.n} · Area ${n.c.a} · ${n.mp} orang · ${statusTxt[n.st]}${n.nb?` · ${n.nb} metrik merah`:""}`;
+    const tip=`Nasmoco ${n.c.n} · Area ${n.c.a} · ${n.mp} orang · ${statusTxt[n.st]}${n.nb?` · ${n.nb} metrik merah`:""}`,sel=MAPV.sel===n.c.n;
+    const txt=MAPV.k==null?n.c.n:`${n.c.n} ${n.hr[MAPV.k].v}`;
     const lead=Math.hypot(n.x-n.ax,n.y-n.ay)>3/s?`<line x1="${n.ax.toFixed(1)}" y1="${n.ay.toFixed(1)}" x2="${n.x.toFixed(1)}" y2="${n.y.toFixed(1)}" stroke="${css("--muted")}" stroke-width="${1/s}"/><circle cx="${n.ax.toFixed(1)}" cy="${n.ay.toFixed(1)}" r="${1.6/s}" fill="${css("--muted")}"/>`:"";
-    return`<g class="pt${n.on?"":" off"}" data-cab="${n.c.n}" tabindex="${n.on?0:-1}" role="button" aria-label="${tip}"><title>${tip}</title>${lead}
+    return`<g class="pt${n.on?"":" off"}${sel?" sel":""}" data-sel="${n.c.n}" tabindex="${n.on?0:-1}" role="button" aria-label="${tip}"><title>${tip}</title>${lead}
+      ${n.st==="bad"&&n.on&&lbl!=="mini"?`<circle class="ring" cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${n.r.toFixed(1)}" fill="none" stroke="${col("bad")}" stroke-width="${1.5/s}"/>`:""}
       <circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${(n.r+6/s).toFixed(1)}" fill="transparent"/>
-      <circle class="dt" cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${n.r.toFixed(1)}" fill="${col(n.st)}" stroke="${css("--surface")}" stroke-width="${ring}"/>
-      ${n.nb&&lbl!=="mini"?`<text x="${n.x.toFixed(1)}" y="${(n.y+fs*.36).toFixed(1)}" text-anchor="middle" font-size="${(fs*.95).toFixed(1)}" font-weight="700" fill="${ink(n.st)}">${n.nb}</text>`:""}
-      ${lbl===true?`<text class="lb" x="${(n.x+dx).toFixed(1)}" y="${(n.y+dy).toFixed(1)}" text-anchor="${anc}" font-size="${fs.toFixed(1)}" stroke-width="${(3/s).toFixed(1)}">${n.c.n}</text>`:""}</g>`};
+      ${sel?`<circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${(n.r+5/s).toFixed(1)}" fill="none" stroke="${css("--gold")}" stroke-width="${2.5/s}"/>`:""}
+      <circle class="dt" cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${n.r.toFixed(1)}" fill="${col(n.st)}" stroke="${css("--surface")}" stroke-width="${ring}" style="${dark&&n.on?`filter:drop-shadow(0 0 ${(5/s).toFixed(1)}px ${col(n.st)})`:""}"/>
+      ${n.nb&&MAPV.k==null&&lbl!=="mini"?`<text x="${n.x.toFixed(1)}" y="${(n.y+fs*.36).toFixed(1)}" text-anchor="middle" font-size="${(fs*.95).toFixed(1)}" font-weight="700" fill="${ink(n.st)}">${n.nb}</text>`:""}
+      ${lbl===true?`<text class="lb" x="${(n.x+dx).toFixed(1)}" y="${(n.y+dy).toFixed(1)}" text-anchor="${anc}" font-size="${fs.toFixed(1)}" stroke-width="${(3/s).toFixed(1)}">${txt}</text>`:""}</g>`};
+  let grat="";for(let lo=108.5;lo<=111.8;lo+=.5){const x=pxy(lo,0)[0];grat+=`M${x.toFixed(1)} 0V${H}`}for(let la=-6.5;la>=-8.3;la-=.5){const y=pxy(0,la)[1];grat+=`M0 ${y.toFixed(1)}H${W}`}
   const bx0=Math.min(...smMain.map(n=>n.x-n.r))-4/s,by0=Math.min(...smMain.map(n=>n.y-n.r))-4/s,bx1=Math.max(...smMain.map(n=>n.x+n.r))+4/s,by1=Math.max(...smMain.map(n=>n.y+n.r))+4/s;
   box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Peta 24 cabang di Jawa Tengah dan DIY">
-    <rect width="${W}" height="${H}" fill="${css("--sea")}"/>
-    <path d="${PETA.tetangga}" fill="${css("--land-2")}" stroke="${css("--line")}" stroke-width="${1/s}"/>
-    <path d="${PETA.jateng}" fill="${css("--land")}" stroke="${css("--coast")}" stroke-width="${1.2/s}" stroke-linejoin="round"/>
-    <path d="${PETA.diy}" fill="${css("--land")}" stroke="${css("--coast")}" stroke-width="${1.2/s}" stroke-linejoin="round"/>
+    <defs><linearGradient id="landg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${css("--land")}"/><stop offset="1" stop-color="${css("--land-2")}"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="${css("--sea")}"/><path d="${grat}" stroke="${css("--grid")}" stroke-width="${1/s}" fill="none"/>
+    <path d="${PETA.tetangga}" fill="${css("--land-2")}" stroke="${css("--line")}" stroke-width="${1/s}" opacity=".7"/>
+    <path d="${PETA.jateng}${PETA.diy}" fill="url(#landg)" stroke="${css("--coast")}" stroke-width="${1.4/s}" stroke-linejoin="round" style="${dark?`filter:drop-shadow(0 0 ${(6/s).toFixed(1)}px ${css("--coast")})`:""}"/>
+    <path d="${PETA.diy}" fill="none" stroke="${css("--coast")}" stroke-width="${1/s}" stroke-dasharray="${4/s} ${3/s}"/>
     <text class="rg" x="${pxy(109.6,-7.62)[0]}" y="${pxy(109.6,-7.62)[1]}" font-size="${(fs*1.05).toFixed(1)}" letter-spacing="${2/s}">JAWA TENGAH</text>
     <text class="rg" x="${pxy(110.2,-8.02)[0]}" y="${pxy(110.2,-8.02)[1]}" font-size="${(fs*.9).toFixed(1)}" letter-spacing="${1.5/s}">DIY</text>
     ${narrow?"":`<path d="M${bx0} ${by0}L${IX+IW*.7} ${IY+IH}" stroke="${css("--blue")}" stroke-width="${1/s}" stroke-dasharray="${3/s} ${3/s}" fill="none"/>`}
     <rect x="${bx0}" y="${by0}" width="${bx1-bx0}" height="${by1-by0}" rx="${4/s}" fill="none" stroke="${css("--blue")}" stroke-width="${1.2/s}"/>
     ${smMain.map(n=>dot(n,"mini")).join("")}
     ${main.map(n=>dot(n,!narrow)).join("")}
-    ${narrow?"":`<rect x="${IX}" y="${IY}" width="${IW}" height="${IH}" rx="${8/s}" fill="${css("--surface")}" stroke="${css("--blue")}" stroke-width="${1.2/s}"/>
+    ${narrow?"":`<rect x="${IX}" y="${IY}" width="${IW}" height="${IH}" rx="${8/s}" fill="${css("--surface")}" fill-opacity=".92" stroke="${css("--blue")}" stroke-width="${1.2/s}"/>
     <text x="${IX+10/s}" y="${IY+fs*1.35}" font-size="${(fs*.95).toFixed(1)}" font-weight="700" fill="${css("--accent-ink")}">Kota Semarang</text>
     ${ins.map(n=>dot(n,true)).join("")}`}
   </svg>`;
   const rk=nodes.filter(n=>n.on).sort((a,b)=>({bad:0,warn:1,good:2})[a.st]-({bad:0,warn:1,good:2})[b.st]||b.nb-a.nb||a.c.n.localeCompare(b.c.n));
-  document.getElementById("mapList").innerHTML=rk.map(n=>`<button type="button" data-cab="${n.c.n}"><i style="background:${col(n.st)}"></i>${n.c.n}${n.nb?`<b>${n.nb}</b>`:""}</button>`).join("");
+  document.getElementById("mapList").innerHTML=rk.map(n=>`<button type="button" data-sel="${n.c.n}"><i style="background:${col(n.st)}"></i>${n.c.n}${n.nb&&MAPV.k==null?`<b>${n.nb}</b>`:""}</button>`).join("");
+  const cnt={bad:0,warn:0,good:0};nodes.filter(n=>!S.area||n.c.a===S.area).forEach(n=>cnt[n.st]++);
+  document.querySelectorAll("#mapF button").forEach(b=>{b.setAttribute("aria-pressed",String(b.dataset.v===MAPV.f));const c=b.querySelector("b");if(c)c.textContent=b.dataset.v==="all"?sum(Object.values(cnt)):cnt[b.dataset.v]});
+  document.querySelectorAll("#mapK button").forEach(b=>b.setAttribute("aria-pressed",String((b.dataset.v==="w"?null:+b.dataset.v)===MAPV.k)));
+  renderSel(rk);
 }
+function renderSel(rk){
+  const el=document.getElementById("selPanel"),c=MAPV.sel&&CAB.find(x=>x.n===MAPV.sel);
+  if(!c){el.innerHTML=`<div class="sp-h"><div class="eyebrow">Sorotan</div><h3>${MAPV.k==null?"Paling perlu perhatian":"Urutan menurut "+COLS[MAPV.k].h}</h3><p>Klik titik di peta atau nama di bawah untuk melihat ringkasan cabang.</p></div>
+    <ol class="sp-list">${rk.slice(0,8).map(n=>`<li><button type="button" data-sel="${n.c.n}"><i style="background:${css("--"+n.st)}"></i><span class="nm">${n.c.n}<small>Area ${n.c.a} · ${n.c.kota}</small></span>${MAPV.k==null?(n.nb?`<b class="cntb">${n.nb}</b>`:""):`<em>${n.hr[MAPV.k].v}</em>`}</button></li>`).join("")}</ol>`;return}
+  const r=heatRow(c),st=worst(r),s=c.lb.map((x,i)=>x/c.gp[i]*100),w=Math.max(220,Math.floor(el.clientWidth-36));
+  el.innerHTML=`<div class="sp-h"><button class="sp-back" type="button" data-sel="">← Semua cabang</button><div class="eyebrow">Area ${c.a} · ${c.kota}</div><h3>Nasmoco ${c.n}</h3>${pill(st)}</div>
+    <div class="sp-mets">${COLS.map((m,i)=>`<div class="${r[i].st}"><span>${m.h}</span><b>${stMini(r[i].st)}${r[i].v}</b></div>`).join("")}</div>
+    <div class="sp-tr"><div class="sp-l">Rasio lembur Januari sampai September</div>${spark({v:s,fmt:x=>nf(x,1)+"%",ref:{v:10,label:"batas 10%"}},w)}<span class="skey"><i class="dash" style="border-color:var(--bad)"></i>batas 10%</span><p class="sp-why"><b>Alasan lembur</b>${c.whyLb}</p></div>
+    <div class="chips"><button type="button" class="primary" data-cab="${c.n}">Profil lengkap</button><button type="button" data-askcab="${c.n}">Tanyakan ke asisten</button></div>`;
+}
+document.getElementById("p-cabang").addEventListener("click",e=>{
+  const b=e.target.closest("[data-sel]");if(b){MAPV.sel=b.dataset.sel||null;renderMap();if(MAPV.sel&&innerWidth<1021)document.getElementById("selPanel").scrollIntoView({behavior:"smooth",block:"nearest"});return}
+  const f=e.target.closest("#mapF button");if(f){MAPV.f=f.dataset.v;renderMap();return}
+  const k=e.target.closest("#mapK button");if(k){MAPV.k=k.dataset.v==="w"?null:+k.dataset.v;renderMap();return}
+  const a=e.target.closest("[data-askcab]");if(a){openDock();say(esc("Ringkasan "+a.dataset.askcab),"me");ask("cabang",{cab:a.dataset.askcab})}});
+document.getElementById("map").addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const g=e.target.closest("[data-sel]");if(g){e.preventDefault();MAPV.sel=g.dataset.sel;renderMap()}});
 
 /* ---------- render: panel ---------- */
 function renderMp(){
@@ -1362,12 +1425,12 @@ function renderAll(){renderSummary();renderHealth();renderAlerts();renderSugg();
 function syncButtons(){
   document.querySelectorAll("#fArea button").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.v===S.area)));
   document.querySelectorAll("#fPer button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===S.per)));
-  document.querySelectorAll(".tabs").forEach(t=>t.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(S[t.dataset.k]===b.dataset.v))));
+  document.querySelectorAll(".tabs[data-k]").forEach(t=>t.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(S[t.dataset.k]===b.dataset.v))));
 }
 function save(){try{localStorage.setItem("dmhc",JSON.stringify({area:S.area,per:S.per}))}catch(e){}}
 document.getElementById("fArea").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.area=+b.dataset.v;save();renderAll()});
 document.getElementById("fPer").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.per=b.dataset.v;save();renderAll()});
-document.querySelectorAll(".tabs").forEach(t=>t.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S[t.dataset.k]=b.dataset.v;syncButtons();
+document.querySelectorAll(".tabs[data-k]").forEach(t=>t.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S[t.dataset.k]=b.dataset.v;syncButtons();
   const k=t.dataset.k;({mpT:renderMp,mpC:renderMp,lbT:renderLb,toF:renderTo,toT:renderTo,toC:renderTo,prF:renderPr,prT:renderPr,prC:renderPr,opT:renderRp,gpC:renderRp,gpT:renderRp})[k]()}));
 const PAGES=["ringkasan","cabang","berubah","grafik"];
 function pageOf(id){const el=document.getElementById(id);if(!el)return null;const pg=el.closest(".page");return pg?pg.id.slice(2):null}
