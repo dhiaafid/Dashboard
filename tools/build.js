@@ -4,7 +4,9 @@
 const fs=require("fs"),path=require("path");
 const root=path.join(__dirname,"..");
 const vendor=path.join(root,"vendor");
-const src=fs.readFileSync(path.join(root,"src","dashboard.src.html"),"utf8");
+// pemakaian: node tools/build.js [v4]
+const V=process.argv[2]==="v4";
+const src=fs.readFileSync(path.join(root,"src",V?"dashboard-v4.src.html":"dashboard.src.html"),"utf8");
 const data=fs.readFileSync(path.join(root,"src","data-contoh.json"),"utf8").trim();
 const chart=fs.readFileSync(path.join(vendor,"chart.umd.min.js"),"utf8");
 const fonts=[400,500,600,700].map(w=>{
@@ -13,5 +15,6 @@ const fonts=[400,500,600,700].map(w=>{
 }).join("\n");
 let out=src.replace("/*@@FONTS@@*/",()=>fonts).replace("/*@@CHARTJS@@*/",()=>chart.replace(/<\/script/gi,"<\\/script")).replace("/*@@DATA@@*/",()=>data).replace("/*@@PETA@@*/",()=>fs.readFileSync(path.join(root,"src","peta.json"),"utf8").trim());
 if(/@@[A-Z]+@@/.test(out))throw new Error("placeholder tersisa");
-fs.writeFileSync(path.join(root,"dashboard-tanya-jawab-v3.html"),out);
-console.log("dashboard-tanya-jawab-v3.html",Math.round(out.length/1024)+" KB");
+const OUT=V?"dashboard-tanya-jawab-v4.html":"dashboard-tanya-jawab-v3.html";
+fs.writeFileSync(path.join(root,OUT),out);
+console.log(OUT,Math.round(out.length/1024)+" KB");
