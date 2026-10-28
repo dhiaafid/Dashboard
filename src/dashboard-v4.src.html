@@ -207,6 +207,33 @@ table.heat{border-collapse:separate;border-spacing:0;width:100%;min-width:720px;
 .sp-why b{display:block;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 @media (max-width:1020px){.mapgrid{grid-template-columns:minmax(0,1fr)}.selp{position:static;min-height:0}}
 @media (prefers-reduced-motion:reduce){.map .ring{animation:none;display:none}}
+/* Apa yang berubah v4 */
+#movers{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:1020px){#movers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){#movers{grid-template-columns:minmax(0,1fr)}}
+.mgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.mt{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid var(--edge);border-radius:14px;padding:13px 14px;background:rgb(255 255 255 / .03);color:var(--ink);cursor:pointer}
+.mt:hover{border-color:var(--navy);box-shadow:var(--shadow-hi)}
+.mt-h{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.mt-h svg{width:16px;height:16px;color:var(--navy)}
+.mt-n{font-size:12.5px;color:var(--muted)}
+.mt-n b{font-family:var(--f-display);font-size:22px;margin:0 3px 0 0;vertical-align:-2px}
+.mt-n b.bad{color:var(--bad-ink)} .mt-n b.good{color:var(--good-ink);margin-left:8px}
+.mt-n em{font-style:normal;margin-left:6px;font-size:11.5px}
+.mt-bar{display:flex;gap:2px;height:8px;border-radius:99px;overflow:hidden}
+.mt-bar i{display:block}
+.mt-bar i.bad{background:var(--bad);box-shadow:0 0 8px var(--bad)} .mt-bar i.good{background:var(--good);box-shadow:0 0 8px var(--good)} .mt-bar i.eq{background:var(--grid)}
+.mt-w{font-size:12px;color:var(--muted)}
+.mt-w b{color:var(--ink)}
+.sec3{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-family:var(--f-body);margin:0 0 10px}
+.movers li{background:rgb(255 255 255 / .03)}
+.movers li.bad{box-shadow:inset 0 0 0 1px rgb(255 93 108 / .12),0 0 24px rgb(255 93 108 / .08)}
+.m-act{display:flex;gap:12px;align-items:center;margin-top:6px}
+.m-act .m-go{margin-top:0}
+.m-ask{border:1px solid color-mix(in srgb,var(--navy) 50%,transparent);background:none;color:var(--accent-ink);border-radius:8px;padding:4px 11px;font-size:12px;font-weight:700;cursor:pointer}
+.m-ask:hover{box-shadow:0 0 12px rgb(56 189 248 / .3)}
+@media (max-width:1020px){.mgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.mgrid{grid-template-columns:minmax(0,1fr)}}
 /* Batang progres MP vs MPP */
 .pbleg{margin:-2px 0 10px}
 .pbleg i.band{background:var(--good-bg);border:1px solid color-mix(in srgb,var(--good) 45%,transparent)}
@@ -704,6 +731,8 @@ section.block{border-radius:18px;box-shadow:var(--shadow);padding:20px}
   <div class="page" id="p-berubah" hidden>
   <section class="block" id="berubah">
     <div class="block-head"><div><div class="eyebrow">Halaman 3 · Pergerakan bulan ini</div><h2>Apa yang berubah dibanding Agustus?</h2><p class="answer" id="ansBerubah"></p></div><div class="msum" id="moveSum"></div></div>
+    <div class="mgrid" id="moveGrid"></div>
+    <h3 class="sec3">Enam pergerakan terbesar</h3>
     <ol class="movers" id="movers"></ol>
   </section>
   <section class="block" id="berubahLembur">
@@ -896,7 +925,7 @@ const valueLabels={id:"valueLabels",afterDatasetsDraw(ch){const m=(META[ch.canva
       ctx.fillStyle=col;ctx.fillText(t,el.x,y)})});
   if(m.totals){const meta=ch.getDatasetMeta(ch.data.datasets.length-1);ctx.font="700 11.5px "+css("--f-body");ctx.fillStyle=css("--ink");ctx.strokeStyle=css("--surface");ctx.lineWidth=4;ctx.lineJoin="round";meta.data.forEach((el,i)=>{ctx.strokeText(m.totals[i],el.x,el.y-6);ctx.fillText(m.totals[i],el.x,el.y-6)})}
   ctx.restore()}};
-const glow={id:"glow",beforeDatasetDraw(ch,a){if(document.documentElement.dataset.theme==="light")return;const ds=ch.data.datasets[a.index];if((ds.type||ch.config.type)!=="line")return;ch.ctx.save();ch.ctx.shadowColor=ds.borderColor;ch.ctx.shadowBlur=12},afterDatasetDraw(ch,a){if(document.documentElement.dataset.theme==="light")return;const ds=ch.data.datasets[a.index];if((ds.type||ch.config.type)!=="line")return;ch.ctx.restore()}};
+const glow={id:"glow",beforeDatasetDraw(ch,a){if(document.documentElement.dataset.theme==="light")return;const ds=ch.data.datasets[a.index];const ln=(ds.type||ch.config.type)==="line";if(!ln&&!ds.glow)return;ch.ctx.save();ch.ctx.shadowColor=ln?ds.borderColor:"rgba(56,189,248,.45)";ch.ctx.shadowBlur=ln?12:10},afterDatasetDraw(ch,a){if(document.documentElement.dataset.theme==="light")return;const ds=ch.data.datasets[a.index];if((ds.type||ch.config.type)!=="line"&&!ds.glow)return;ch.ctx.restore()}};
 Chart.register(refLines,areaBands,valueLabels,glow);
 function baseOpts(o){
   const ink=css("--muted"),grid=css("--grid");
@@ -1198,6 +1227,8 @@ function renderSel(rk){
     <div class="sp-tr"><div class="sp-l">Rasio lembur Januari sampai September</div>${spark({v:s,fmt:x=>nf(x,1)+"%",ref:{v:10,label:"batas 10%"}},w)}<span class="skey"><i class="dash" style="border-color:var(--bad)"></i>batas 10%</span><p class="sp-why"><b>Alasan lembur</b>${c.whyLb}</p></div>
     <div class="chips"><button type="button" class="primary" data-cab="${c.n}">Profil lengkap</button><button type="button" data-askcab="${c.n}">Tanyakan ke asisten</button></div>`;
 }
+document.getElementById("movers").addEventListener("click",e=>{const b=e.target.closest("[data-askm]");if(!b)return;const x=window.__movers[+b.dataset.askm],k={Lembur:"lembur",Manpower:"manpower",Turnover:"turnover","Produktivitas sales":"prod"}[x.kind];
+  openDock();say(esc(`${x.kind} ${x.c.n}`),"me");ask(k,{cab:x.c.n})});
 document.getElementById("p-cabang").addEventListener("click",e=>{
   const b=e.target.closest("[data-sel]");if(b){MAPV.sel=b.dataset.sel||null;renderMap();if(MAPV.sel&&innerWidth<1021)document.getElementById("selPanel").scrollIntoView({behavior:"smooth",block:"nearest"});return}
   const f=e.target.closest("#mapF button");if(f){MAPV.f=f.dataset.v;renderMap();return}
@@ -1333,6 +1364,14 @@ function slope(v0,v1,f,st,w){
 }
 function renderChanges(){
   const cs=scope(),mv=changes(cs);
+  const MM=[["lembur","Lembur","down",c=>c.lb[LAST]/c.gp[LAST]-c.lb[LAST-1]/c.gp[LAST-1],c=>`${c.n} ${(c.lb[LAST]/c.gp[LAST]-c.lb[LAST-1]/c.gp[LAST-1])>0?"+":""}${nf((c.lb[LAST]/c.gp[LAST]-c.lb[LAST-1]/c.gp[LAST-1])*100,1)} poin`],
+    ["manpower","Manpower","up",c=>mpTot(c.act)-mpTot(c.mpH[LAST-1]),c=>`${c.n} ${mpTot(c.act)-mpTot(c.mpH[LAST-1])>0?"+":""}${mpTot(c.act)-mpTot(c.mpH[LAST-1])} orang`],
+    ["turnover","Orang keluar","down",c=>toCount(c,"total","m")-sum(["sales","afs","admin"].map(k=>c.to[k][LAST-1])),c=>{const d=toCount(c,"total","m")-sum(["sales","afs","admin"].map(k=>c.to[k][LAST-1]));return`${c.n} ${d>0?"+":""}${d} orang`}],
+    ["produktivitas","Produktivitas sales","up",c=>c.prS[LAST]-c.prS[LAST-1],c=>`${c.n} ${c.prS[LAST]-c.prS[LAST-1]>0?"+":""}${nf(c.prS[LAST]-c.prS[LAST-1],2)}`]];
+  document.getElementById("moveGrid").innerHTML=MM.map(([go,nm,good,f,lbl])=>{const d=cs.map(c=>({c,v:f(c)})),up=d.filter(x=>x.v>1e-9).length,dn=d.filter(x=>x.v<-1e-9).length,eq=d.length-up-dn;
+    const better=good==="up"?up:dn,worse=good==="up"?dn:up,wst=d.slice().sort((a,b)=>good==="up"?a.v-b.v:b.v-a.v)[0];
+    return`<button class="mt" type="button" data-go="${go}"><span class="mt-h">${icon(go)}${nm}</span><span class="mt-n"><b class="bad">${worse}</b> memburuk <b class="good">${better}</b> membaik${eq?` <em>${eq} tetap</em>`:""}</span>
+      <span class="mt-bar" aria-hidden="true"><i class="bad" style="flex:${worse}"></i>${eq?`<i class="eq" style="flex:${eq}"></i>`:""}<i class="good" style="flex:${better}"></i></span><span class="mt-w">${worse?`Paling memburuk: <b>${lbl(wst.c)}</b>`:"Tidak ada cabang yang memburuk"}</span></button>`}).join("");
   const isBad=x=>(x.d>0)!==(x.good==="up");
   const nBad=mv.filter(isBad).length;
   document.getElementById("moveSum").innerHTML=`<div class="ms bad"><span class="n">${nBad}</span><span>pergerakan ke arah<br>yang kurang baik</span></div><div class="ms good"><span class="n">${mv.length-nBad}</span><span>pergerakan ke arah<br>yang lebih baik</span></div>`;
@@ -1342,7 +1381,8 @@ function renderChanges(){
       <div class="m-val ${st}"><span class="ar">${x.d>0?"▲":"▼"}</span>${x.d>0?"Naik":"Turun"} ${x.val}</div>
       <span class="dbw" data-i="${i}"></span>
       <div class="m-why"><b>Alasan</b>${x.why}</div>
-      <button class="m-go" type="button" data-go="${x.go}">Lihat grafik ${x.kind.toLowerCase()}</button></li>`}).join("");
+      <span class="m-act"><button class="m-ask" type="button" data-askm="${i}">Tanyakan</button><button class="m-go" type="button" data-go="${x.go}">Lihat grafik</button></span></li>`}).join("");
+  window.__movers=mv;
   const drawDb=()=>ul.querySelectorAll(".dbw").forEach(el=>{const x=mv[+el.dataset.i];el.innerHTML=slope(x.v0,x.v1,x.f,isBad(x)?"bad":"good",Math.max(200,Math.floor(el.getBoundingClientRect().width)))});
   drawDb();window.__drawDb=drawDb;
   document.getElementById("ansBerubah").innerHTML=`Enam pergerakan terbesar di ${scopeName()} bulan ini, <b>${nBad} di antaranya ke arah yang kurang baik</b>. Alasan diambil dari laporan cabang dan data aktivitas lembur.`;
@@ -1355,7 +1395,7 @@ function renderChanges(){
   o.layout={padding:{left:4,right:44,top:4}};o.interaction={mode:"nearest",axis:"y",intersect:false};
   o.scales.x=Object.assign(o.scales.x,{grid:{color:ctx=>ctx.tick.value===0?css("--muted"):css("--grid"),lineWidth:ctx=>ctx.tick.value===0?1.5:1},beginAtZero:true,grace:"8%",ticks:Object.assign(o.scales.x.ticks,{callback:v=>(v>0?"+":"")+nf(v,1),maxRotation:0})});
   o.scales.y=Object.assign(o.scales.y,{grid:{display:false},beginAtZero:false,grace:0,ticks:Object.assign(o.scales.y.ticks,{autoSkip:false,color:css("--ink"),font:{family:css("--f-body"),size:11.5,weight:"600"}})});
-  draw("cLbDelta",{data:{labels:rows.map(r=>r.c.n),datasets:[barDs(rows.map(r=>r.d),rows.map(r=>r.d>0?css("--bad"):css("--good")),{label:"Perubahan",borderRadius:4,borderSkipped:false,maxBarThickness:16})]},options:o});
+  draw("cLbDelta",{data:{labels:rows.map(r=>r.c.n),datasets:[barDs(rows.map(r=>r.d),rows.map(r=>r.d>0?css("--bad"):css("--good")),{label:"Perubahan",glow:true,borderRadius:4,borderSkipped:false,maxBarThickness:16})]},options:o});
   // lembur departemen HO
   const mx=Math.max(...DEPT.map(d=>Math.max(d[1],d[2])))*1.08;
   document.getElementById("tDept").innerHTML="<thead><tr><th>Departemen</th><th class='r'>Agustus</th><th class='dbh'>Agustus ke September</th><th class='r'>September</th><th class='r'>Δ</th><th>Alasan lembur</th></tr></thead><tbody>"+
