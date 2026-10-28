@@ -1017,7 +1017,8 @@ function gauge(frac,st,o){
     <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${col}" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(L*cl(frac)).toFixed(2)} ${C.toFixed(2)}" transform="rotate(135 ${cx} ${cy})" style="${dark?`filter:drop-shadow(0 0 4px ${col})`:""}"/>${o.tick!=null?tk(o.tick):""}</svg>
     <span class="gv"><b>${o.center}</b><small>${o.cap}</small></span></div>`;
 }
-function hello(){const h=new Date().getHours();return h<11?"Selamat pagi":h<15?"Selamat siang":h<18?"Selamat sore":"Selamat malam"}
+function hello(){const h=new Date().getHours();return h>=4&&h<11?"Selamat pagi":h>=11&&h<15?"Selamat siang":h>=15&&h<18?"Selamat sore":"Selamat malam"}
+setInterval(()=>{const el=document.getElementById("hello");if(el)el.textContent=hello()+".";},60000);
 function renderHealth(){
   const cs=scope(),w=cs.map(c=>worst(heatRow(c))),n={bad:0,warn:0,good:0};w.forEach(x=>n[x]++);
   const seg=k=>n[k]?`<i style="flex:${n[k]};background:${css("--"+k)}"></i>`:"";
@@ -1093,7 +1094,7 @@ function renderSummary(){
   parts.push(`Manpower <b>${pc(mpR,0)}</b> dari MPP.`);
   if(reds.length)parts.push(`<b>${reds.slice(0,3).map(x=>x.c.n).join(", ")}</b> merah di tiga metrik atau lebih.`);
   document.getElementById("leadWhen").textContent="Kesimpulan September 2026 · "+scopeName();
-  document.getElementById("hello").innerHTML=`${hello()}. Ini briefing <b>${scopeName()}</b>, ${DATA.meta.periode}.`;
+  document.getElementById("hello").textContent=hello()+".";
   document.getElementById("stamps").innerHTML=`<span class="stamp">${icon("info")}Data HC ${DATA.meta.periode}</span><span class="stamp">${icon("cabang")}${cs.length} cabang${S.area?"":" dan Head Office"}</span><span class="stamp">${S.per==="m"?"Periode bulan ini":"Periode YTD"}</span><span class="stamp flagx">${icon("info")}Produktivitas teknisi September belum masuk, memakai Agustus</span>`;
   document.getElementById("leadText").innerHTML=parts.join(" ");
 }
@@ -1553,7 +1554,7 @@ dock.addEventListener("click",e=>{if(e.target===dock)closeDock()});
 function applyTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem("hcc-theme",t)}catch(e){}document.getElementById("themeBtn").setAttribute("aria-label",t==="light"?"Ganti ke mode gelap":"Ganti ke mode terang")}
 document.getElementById("themeBtn").addEventListener("click",()=>applyTheme(document.documentElement.dataset.theme==="light"?"dark":"light"));
 document.getElementById("foot").textContent=`HC Connect · Data per ${DATA.meta.periode}${DATA.meta.angkaContoh?" · Angka contoh":""} · Human Capital Division, Nasmoco Group`;
-say(`${hello()}. Saya asisten HC Connect. Tanyakan soal manpower, lembur, turnover, produktivitas, atau satu cabang. Jawaban dihitung langsung dari data ${DATA.meta.periode}.`,"bot plain");menu(true);
+say(`Saya asisten HC Connect. Tanyakan soal manpower, lembur, turnover, produktivitas, atau satu cabang. Jawaban dihitung langsung dari data ${DATA.meta.periode}.`,"bot plain");menu(true);
 
 /* ---------- tema ---------- */
 renderAll();{const h=location.hash.slice(1);showPage(PAGES.includes(h)?h:"ringkasan",true)}
