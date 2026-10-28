@@ -17,6 +17,7 @@
   --good-ink:#0d6b37; --warn-ink:#8a5a00; --bad-ink:#a42727;
   --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4;
   --bar:#376092; --bar-soft:#9fb4d3; --grid:#e5eaf1; --wash:rgb(55 96 146 / .10);
+  --sea:#e4edf7; --land:#ffffff; --land-2:#eef1f5; --coast:#8fa7c9;
   --shadow:0 1px 2px rgb(0 32 96 / .06); --shadow-hi:0 6px 18px rgb(0 32 96 / .12);
   --f-display:"Poppins", "Segoe UI", system-ui, sans-serif;
   --f-body:"Poppins", "Segoe UI", system-ui, sans-serif;
@@ -31,6 +32,7 @@
   --good-ink:#7bd69c; --warn-ink:#f2c55c; --bad-ink:#ff9b94;
   --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
   --bar:#6f98d4; --bar-soft:#3b557f; --grid:#22304a; --wash:rgb(111 152 212 / .12);
+  --sea:#0c182b; --land:#1a2742; --land-2:#131e34; --coast:#4a6590;
   --shadow:0 1px 2px rgb(0 0 0 / .3); --shadow-hi:0 6px 18px rgb(0 0 0 / .35); color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0b1322; --surface:#121d33; --surface-2:#18243d; --ink:#e7edf7; --muted:#9aa8c2; --line:#26344f;
@@ -41,6 +43,7 @@
   --good-ink:#7bd69c; --warn-ink:#f2c55c; --bad-ink:#ff9b94;
   --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
   --bar:#6f98d4; --bar-soft:#3b557f; --grid:#22304a; --wash:rgb(111 152 212 / .12);
+  --sea:#0c182b; --land:#1a2742; --land-2:#131e34; --coast:#4a6590;
   --shadow:0 1px 2px rgb(0 0 0 / .3); --shadow-hi:0 6px 18px rgb(0 0 0 / .35); color-scheme:dark}
 
 *{box-sizing:border-box}
@@ -143,6 +146,35 @@ table.heat{border-collapse:separate;border-spacing:0;width:100%;min-width:720px;
 .heat .nm{border:0;background:none;padding:0;cursor:pointer;font-weight:600;color:var(--accent-ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
 .heat td.cnt{padding:6px 8px;color:var(--muted);font-weight:700}
 
+/* Peta */
+.maplegend{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;font-size:12px;color:var(--muted);margin-bottom:10px}
+.maplegend>span:first-child{display:flex;flex-wrap:wrap;gap:6px}
+.maplegend .pill{margin:0}
+.lg-item{display:inline-flex;align-items:center;gap:6px}
+.lg-item .sz{display:inline-block;border-radius:50%;background:var(--muted);opacity:.55}
+.lg-item .sz.s1{width:9px;height:9px}.lg-item .sz.s2{width:16px;height:16px;margin-left:-2px}
+.lg-item .nb{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--bad);color:#fff;font-size:10.5px}
+.map{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--sea);margin-bottom:18px}
+.map svg{display:block;width:100%;height:auto;font-family:var(--f-body)}
+.map .pt{cursor:pointer;outline:none}
+.map .pt.off{opacity:.22;pointer-events:none}
+.map .pt:hover .dt,.map .pt:focus-visible .dt{stroke:var(--accent-ink)}
+.map .pt:focus-visible .lb{text-decoration:underline}
+.map text.lb{fill:var(--ink);font-weight:600;paint-order:stroke;stroke:var(--land);stroke-linejoin:round}
+.map .pt.off text.lb{display:none}
+.map text.rg{fill:var(--muted);opacity:.45;font-weight:700}
+.maplist{display:none}
+.tbl-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.tbl-head h3{font-size:15px;color:var(--accent-ink)}
+.reset{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:5px 10px;font-size:12px;font-weight:600;color:var(--accent-ink);cursor:pointer}
+.heat th .sort{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;display:inline-flex;gap:4px;align-items:center;white-space:nowrap}
+.heat th .sort .ar{font-size:9px;opacity:.6}
+.heat th[aria-sort="ascending"],.heat th[aria-sort="descending"]{color:var(--accent-ink)}
+.heat th[aria-sort="ascending"] .ar,.heat th[aria-sort="descending"] .ar{opacity:1}
+.heat .sti{width:11px;height:11px;margin-right:5px;vertical-align:-1px}
+.heat .atag{margin-left:8px;font-size:10.5px;font-weight:600;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);border-radius:99px;padding:1px 7px}
+.heat .cntb{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:var(--bad);color:#fff;font-size:11px}
+
 /* Panel kategori */
 .panel-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
 .sub-card{border:1px solid var(--line);border-radius:8px;padding:12px;min-width:0;background:var(--surface)}
@@ -243,6 +275,14 @@ table.mini{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
   .fab{display:flex;align-items:center;gap:8px;position:fixed;z-index:44;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));border:0;border-radius:99px;background:var(--navy);color:var(--surface);padding:12px 18px;font-weight:700;box-shadow:0 6px 20px rgb(0 0 0 / .3);cursor:pointer}
 }
 @media (max-width:640px){
+  .maplist{display:flex;flex-wrap:wrap;gap:6px;margin:-8px 0 18px}
+  .maplist button{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 10px;font-size:12.5px;font-weight:600;color:var(--accent-ink);cursor:pointer}
+  .maplist i{width:10px;height:10px;border-radius:50%;flex:none}
+  .maplist b{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:99px;background:var(--bad);color:#fff;font-size:10.5px}
+  .heat th:first-child,.heat td:first-child{position:sticky;left:0;z-index:1;background:var(--surface)}
+  .heat th:first-child{z-index:2;background:var(--surface-2)}
+  .heat tr.area td:first-child{background:var(--surface-2)}
+  .heat .atag{display:none}
   .lead{padding:14px;gap:12px}
   .lead .mark{width:34px;height:34px;border-radius:10px}
   .lead .mark svg{width:19px;height:19px}
@@ -259,6 +299,17 @@ table.mini{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
   .top{position:static}
   section.block{scroll-margin-top:12px}
   .card:last-child{grid-column:span 2}
+}
+.foot{max-width:1440px;margin:-40px auto 0;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px));font-size:12px;color:var(--muted)}
+@media print{
+  html,body{background:#fff}
+  .top{position:static;box-shadow:none}
+  .menu,.chat,.fab,.next,.qs,.todo .go,.reset,.maplist{display:none!important}
+  .wrap{display:block;padding:12px 0}
+  section.block,.card,.sub-card,.todo li{box-shadow:none;break-inside:avoid}
+  .card:hover{transform:none}
+  .tscroll,.cscroll{overflow:visible}
+  .foot{margin:0;padding:8px 0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
@@ -314,10 +365,19 @@ table.mini{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
   <section class="block" id="cabang">
     <div class="block-head">
       <div><div class="eyebrow">Halaman 2 · Kondisi cabang</div><h2>Cabang mana yang perlu diperhatikan?</h2><p class="answer" id="ansCabang"></p></div>
-      <div class="legend"><span><i style="background:var(--good-bg);border:1px solid var(--good)"></i>Aman</span><span><i style="background:var(--warn-bg);border:1px solid var(--warn)"></i>Mendekati batas</span><span><i style="background:var(--bad-bg);border:1px solid var(--bad)"></i>Perlu perhatian</span></div>
     </div>
+    <div class="maplegend">
+      <span><span class="pill good"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor"/><path d="M4.8 8.2l2.1 2.1 4.3-4.5" stroke="var(--surface)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Aman</span><span class="pill warn"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l7 12.5H1z" fill="currentColor"/><path d="M8 6v3.6M8 11.6v.2" stroke="var(--surface)" stroke-width="1.8" stroke-linecap="round"/></svg>Mendekati batas</span><span class="pill bad"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor"/><path d="M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8" stroke="var(--surface)" stroke-width="1.8" stroke-linecap="round"/></svg>Perlu perhatian</span></span>
+      <span class="lg-item">Warna titik: status terburuk cabang</span>
+      <span class="lg-item"><i class="sz s1"></i><i class="sz s2"></i>Besar titik: jumlah manpower</span>
+      <span class="lg-item"><b class="nb">2</b>Angka: jumlah metrik merah</span>
+      <span class="lg-item">Lokasi perkiraan</span>
+    </div>
+    <div class="map" id="map"></div>
+    <div class="maplist" id="mapList" aria-label="Daftar cabang"></div>
+    <div class="tbl-head"><h3>Rincian enam metrik per cabang</h3><button class="reset" id="heatReset" type="button" hidden>Kembalikan urutan per area</button></div>
     <div class="tscroll"><table class="heat" id="heat"></table></div>
-    <p class="note">Klik nama cabang untuk melihat profil lengkapnya, atau klik kotak untuk membuka grafik terkait. Batas warna: MP 95 sampai 105% dari MPP, lembur di bawah 9,5% (batas 10%), turnover YTD di bawah 8%, produktivitas dan GP/EC dibanding median 24 cabang (merah apabila lebih dari 10% di bawah median).</p>
+    <p class="note">Batas warna: MP 95 sampai 105% dari MPP, lembur di bawah 9,5% (batas 10%), turnover YTD di bawah 8%, produktivitas dan GP/EC dibanding median 24 cabang (merah apabila lebih dari 10% di bawah median).</p>
   </section>
   <button class="next" type="button" data-page="berubah">Lanjut: apa yang berubah bulan ini? <span aria-hidden="true">→</span></button>
   </div>
@@ -453,6 +513,7 @@ table.mini{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
   <form id="chatForm"><input id="chatIn" type="text" placeholder="Atau ketik, misal: lembur Pati" autocomplete="off" aria-label="Ketik pertanyaan"><button type="submit">Kirim</button></form>
 </aside>
 </div>
+<footer class="foot" id="foot"></footer>
 <button class="fab" id="fab" type="button">Tanya Dashboard</button>
 
 <div class="overlay" id="ov" hidden><div class="drawer" role="dialog" aria-modal="true" aria-labelledby="pvName" id="drawer"></div></div>
@@ -639,16 +700,84 @@ const COLS=[{k:"mp",h:"MP vs MPP",go:"manpower"},{k:"lb",h:"Lembur",go:"lembur"}
 function heatRow(c){
   const mdS=median(CAB.map(x=>prVal(x,"sales",S.per))),mdT=median(CAB.map(x=>prVal(x,"tech",S.per))),mdG=median(CAB.map(x=>x.gpec.total));
   const mpR=mpTot(c.act)/mpTot(c.mpp),lb=cLb(c),to=toPct(c,"total","y"),ps=prVal(c,"sales",S.per),pt=prVal(c,"tech",S.per),gp=c.gpec.total;
-  return[{v:pc(mpR,0),st:status("mp",mpR)},{v:pc(lb),st:status("lb",lb)},{v:pc(to),st:status("to",to)},{v:nf(ps,2),st:status("rel",ps,mdS)},{v:nf(pt,2),st:status("rel",pt,mdT)},{v:"Rp"+nf(gp,2),st:status("rel",gp,mdG)}];
+  return[{v:pc(mpR,0),n:mpR,st:status("mp",mpR)},{v:pc(lb),n:lb,st:status("lb",lb)},{v:pc(to),n:to,st:status("to",to)},{v:nf(ps,2),n:ps,st:status("rel",ps,mdS)},{v:nf(pt,2),n:pt,st:status("rel",pt,mdT)},{v:"Rp"+nf(gp,2),n:gp,st:status("rel",gp,mdG)}];
 }
+const worst=r=>r.some(x=>x.st==="bad")?"bad":(r.some(x=>x.st==="warn")?"warn":"good");
+const stMini=st=>st==="warn"||st==="bad"?`<svg class="sti" viewBox="0 0 16 16" aria-hidden="true">${ST_ICON[st]}</svg>`:"";
+const HS={k:null,dir:-1};
 function renderHeat(){
-  let h="<thead><tr><th>Cabang</th>"+COLS.map(c=>`<th>${c.h}</th>`).join("")+"<th>Merah</th></tr></thead><tbody>";
-  [1,2,3].forEach(a=>{if(S.area&&S.area!==a)return;h+=`<tr class="area"><td colspan="${COLS.length+2}">Area ${a}</td></tr>`;
-    CAB.filter(c=>c.a===a).forEach(c=>{const r=heatRow(c);h+=`<tr><td><button class="nm" data-cab="${c.n}">${c.n}</button></td>`+r.map((x,i)=>`<td><button class="cell ${x.st}" data-go="${COLS[i].go}" title="${statusTxt[x.st]||""}">${x.v}</button></td>`).join("")+`<td class="cnt">${r.filter(x=>x.st==="bad").length||""}</td></tr>`})});
+  const sorted=HS.k!=null;
+  const th=(lbl,k,al)=>`<th${al?` style="text-align:${al}"`:""} aria-sort="${HS.k===k?(HS.dir>0?"ascending":"descending"):"none"}"><button class="sort" type="button" data-sort="${k}">${lbl}<span class="ar">${HS.k===k?(HS.dir>0?"▲":"▼"):"↕"}</span></button></th>`;
+  let h="<thead><tr>"+th("Cabang","nama","left")+COLS.map((c,i)=>th(c.h,i)).join("")+th("Merah","merah")+"</tr></thead><tbody>";
+  const row=(c,tag)=>{const r=heatRow(c),nb=r.filter(x=>x.st==="bad").length;return`<tr><td><button class="nm" data-cab="${c.n}">${c.n}</button>${tag?`<span class="atag">Area ${c.a}</span>`:""}</td>`+r.map((x,i)=>`<td><button class="cell ${x.st}" data-go="${COLS[i].go}" title="${c.n}, ${COLS[i].h}: ${x.v} (${statusTxt[x.st]||""})">${stMini(x.st)}${x.v}</button></td>`).join("")+`<td class="cnt">${nb?`<span class="cntb">${nb}</span>`:""}</td></tr>`};
+  if(sorted){
+    const key=c=>HS.k==="nama"?c.n:(HS.k==="merah"?heatRow(c).filter(x=>x.st==="bad").length:heatRow(c)[HS.k].n);
+    scope().slice().sort((a,b)=>{const x=key(a),y=key(b);return(x<y?-1:x>y?1:0)*HS.dir}).forEach(c=>h+=row(c,true));
+  }else [1,2,3].forEach(a=>{if(S.area&&S.area!==a)return;h+=`<tr class="area"><td colspan="${COLS.length+2}">Area ${a}</td></tr>`;CAB.filter(c=>c.a===a).forEach(c=>h+=row(c,false))});
   document.getElementById("heat").innerHTML=h+"</tbody>";
+  document.getElementById("heatReset").hidden=!sorted;
   const cs=scope(),rk=cs.map(c=>({c,n:heatRow(c).filter(x=>x.st==="bad").length})).sort((a,b)=>b.n-a.n);
   const top=rk.filter(x=>x.n>=2);
   document.getElementById("ansCabang").innerHTML=top.length?`<b>${top.length} cabang</b> merah di dua metrik atau lebih. Paling banyak: <b>${top.slice(0,3).map(x=>x.c.n+" ("+x.n+")").join(", ")}</b>.`:"Tidak ada cabang yang merah di dua metrik atau lebih.";
+  renderMap();
+}
+document.getElementById("heat").addEventListener("click",e=>{const b=e.target.closest("[data-sort]");if(!b)return;const k=b.dataset.sort,kk=/^\d$/.test(k)?+k:k;
+  if(HS.k===kk)HS.dir=-HS.dir;else{HS.k=kk;HS.dir=kk==="nama"?1:-1}renderHeat()});
+document.getElementById("heatReset").addEventListener("click",()=>{HS.k=null;renderHeat()});
+
+/* ---------- peta cabang ---------- */
+const PETA=/*@@PETA@@*/;
+const pxy=(lon,lat)=>[(lon-PETA.lon0)*PETA.cos*PETA.k,(PETA.lat0-lat)*PETA.k];
+// sisi label agar nama di kelompok yang berdekatan tidak bertumpuk
+const LSIDE={Mlati:"l",Bantul:"l",Janti:"r","Slamet Riyadi":"t","Ring Road":"r","Solo Baru":"b",Klaten:"l",Magelang:"l",Purwokerto:"l",Purbalingga:"r",Brebes:"b",Cilacap:"b",Karangjati:"l",Salatiga:"r",Demak:"r",Pati:"r",Siliwangi:"l",Pemuda:"tl",Kaligawe:"r",Majapahit:"r",Gombel:"b"};
+const SMG=["Kaligawe","Pemuda","Majapahit","Siliwangi","Gombel"];
+function relax(ns,gap,bd){for(let it=0;it<160;it++){let moved=false;
+  for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){const a=ns[i],b=ns[j];let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||.01;const m=a.r+b.r+gap;
+    if(d<m){const p=(m-d)/2;dx/=d;dy/=d;a.x-=dx*p;a.y-=dy*p;b.x+=dx*p;b.y+=dy*p;moved=true}}
+  ns.forEach(n=>{n.x+=(n.ax-n.x)*.04;n.y+=(n.ay-n.y)*.04;if(bd){n.x=Math.min(bd.x1-n.r,Math.max(bd.x0+n.r,n.x));n.y=Math.min(bd.y1-n.r,Math.max(bd.y0+n.r,n.y))}});if(!moved&&it>20)break}}
+function renderMap(){
+  const box=document.getElementById("map");if(!box||box.offsetParent===null&&!box.dataset.force)return;
+  const W=PETA.w,H=PETA.h,s=Math.max(.3,(box.clientWidth||900)/W),narrow=box.clientWidth<560;
+  const fs=(narrow?10:11.5)/s,rMin=(narrow?5:7)/s,rMax=(narrow?11:16)/s,ring=2/s;
+  const inScope=c=>!S.area||c.a===S.area;
+  const maxMp=Math.max(...CAB.map(c=>mpTot(c.act)));
+  const nodes=CAB.map(c=>{const r=heatRow(c),[x,y]=pxy(c.lon,c.lat);return{c,st:worst(r),nb:r.filter(v=>v.st==="bad").length,mp:mpTot(c.act),
+    r:rMin+(rMax-rMin)*Math.sqrt(mpTot(c.act)/maxMp),x,y,ax:x,ay:y,smg:SMG.includes(c.n),on:inScope(c)}});
+  // inset Kota Semarang di Laut Jawa
+  const sm=nodes.filter(n=>n.smg),cx=sum(sm.map(n=>n.ax))/sm.length,cy=sum(sm.map(n=>n.ay))/sm.length;
+  const IW=narrow?300/s*.62:270,IH=narrow?210/s*.62:165,IX=Math.max(8/s,cx-IW-70),IY=8/s;
+  const Z=narrow?2.6:3,icx=IX+IW/2,icy=IY+IH/2+fs*.6;
+  const ins=sm.map(n=>({...n,x:icx+(n.ax-cx)*Z,y:icy+(n.ay-cy)*Z,ax:icx+(n.ax-cx)*Z,ay:icy+(n.ay-cy)*Z}));
+  relax(ins,4/s,{x0:IX+70/s*0+fs*4.2,x1:IX+IW-fs*5.2,y0:IY+fs*2.4,y1:IY+IH-fs*1.6});
+  const main=nodes.filter(n=>!n.smg);relax(main,3/s);
+  const smMain=sm.map(n=>({...n,r:Math.max(3/s,n.r*.45)}));relax(smMain,1/s);
+  const col=st=>css("--"+st),ink=st=>st==="warn"?"#2b1f00":"#ffffff";
+  const dot=(n,lbl)=>{const side=LSIDE[n.c.n]||"r",dx=side==="l"?-(n.r+4/s):side==="r"?n.r+4/s:side==="tl"?n.r*.2:0,dy=side==="t"||side==="tl"?-(n.r+5/s):side==="b"?n.r+fs:fs*.35,anc=side==="l"||side==="tl"?"end":side==="r"?"start":"middle";
+    const tip=`Nasmoco ${n.c.n} · Area ${n.c.a} · ${n.mp} orang · ${statusTxt[n.st]}${n.nb?` · ${n.nb} metrik merah`:""}`;
+    const lead=Math.hypot(n.x-n.ax,n.y-n.ay)>3/s?`<line x1="${n.ax.toFixed(1)}" y1="${n.ay.toFixed(1)}" x2="${n.x.toFixed(1)}" y2="${n.y.toFixed(1)}" stroke="${css("--muted")}" stroke-width="${1/s}"/><circle cx="${n.ax.toFixed(1)}" cy="${n.ay.toFixed(1)}" r="${1.6/s}" fill="${css("--muted")}"/>`:"";
+    return`<g class="pt${n.on?"":" off"}" data-cab="${n.c.n}" tabindex="${n.on?0:-1}" role="button" aria-label="${tip}"><title>${tip}</title>${lead}
+      <circle cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${(n.r+6/s).toFixed(1)}" fill="transparent"/>
+      <circle class="dt" cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="${n.r.toFixed(1)}" fill="${col(n.st)}" stroke="${css("--surface")}" stroke-width="${ring}"/>
+      ${n.nb&&lbl!=="mini"?`<text x="${n.x.toFixed(1)}" y="${(n.y+fs*.36).toFixed(1)}" text-anchor="middle" font-size="${(fs*.95).toFixed(1)}" font-weight="700" fill="${ink(n.st)}">${n.nb}</text>`:""}
+      ${lbl===true?`<text class="lb" x="${(n.x+dx).toFixed(1)}" y="${(n.y+dy).toFixed(1)}" text-anchor="${anc}" font-size="${fs.toFixed(1)}" stroke-width="${(3/s).toFixed(1)}">${n.c.n}</text>`:""}</g>`};
+  const bx0=Math.min(...smMain.map(n=>n.x-n.r))-4/s,by0=Math.min(...smMain.map(n=>n.y-n.r))-4/s,bx1=Math.max(...smMain.map(n=>n.x+n.r))+4/s,by1=Math.max(...smMain.map(n=>n.y+n.r))+4/s;
+  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Peta 24 cabang di Jawa Tengah dan DIY">
+    <rect width="${W}" height="${H}" fill="${css("--sea")}"/>
+    <path d="${PETA.tetangga}" fill="${css("--land-2")}" stroke="${css("--line")}" stroke-width="${1/s}"/>
+    <path d="${PETA.jateng}" fill="${css("--land")}" stroke="${css("--coast")}" stroke-width="${1.2/s}" stroke-linejoin="round"/>
+    <path d="${PETA.diy}" fill="${css("--land")}" stroke="${css("--coast")}" stroke-width="${1.2/s}" stroke-linejoin="round"/>
+    <text class="rg" x="${pxy(109.6,-7.62)[0]}" y="${pxy(109.6,-7.62)[1]}" font-size="${(fs*1.05).toFixed(1)}" letter-spacing="${2/s}">JAWA TENGAH</text>
+    <text class="rg" x="${pxy(110.2,-8.02)[0]}" y="${pxy(110.2,-8.02)[1]}" font-size="${(fs*.9).toFixed(1)}" letter-spacing="${1.5/s}">DIY</text>
+    ${narrow?"":`<path d="M${bx0} ${by0}L${IX+IW*.7} ${IY+IH}" stroke="${css("--blue")}" stroke-width="${1/s}" stroke-dasharray="${3/s} ${3/s}" fill="none"/>`}
+    <rect x="${bx0}" y="${by0}" width="${bx1-bx0}" height="${by1-by0}" rx="${4/s}" fill="none" stroke="${css("--blue")}" stroke-width="${1.2/s}"/>
+    ${smMain.map(n=>dot(n,"mini")).join("")}
+    ${main.map(n=>dot(n,!narrow)).join("")}
+    ${narrow?"":`<rect x="${IX}" y="${IY}" width="${IW}" height="${IH}" rx="${8/s}" fill="${css("--surface")}" stroke="${css("--blue")}" stroke-width="${1.2/s}"/>
+    <text x="${IX+10/s}" y="${IY+fs*1.35}" font-size="${(fs*.95).toFixed(1)}" font-weight="700" fill="${css("--accent-ink")}">Kota Semarang</text>
+    ${ins.map(n=>dot(n,true)).join("")}`}
+  </svg>`;
+  const rk=nodes.filter(n=>n.on).sort((a,b)=>({bad:0,warn:1,good:2})[a.st]-({bad:0,warn:1,good:2})[b.st]||b.nb-a.nb||a.c.n.localeCompare(b.c.n));
+  document.getElementById("mapList").innerHTML=rk.map(n=>`<button type="button" data-cab="${n.c.n}"><i style="background:${col(n.st)}"></i>${n.c.n}${n.nb?`<b>${n.nb}</b>`:""}</button>`).join("");
 }
 
 /* ---------- render: panel ---------- */
@@ -796,6 +925,7 @@ const PAGES=["ringkasan","cabang","berubah","grafik"];
 function pageOf(id){const el=document.getElementById(id);if(!el)return null;const pg=el.closest(".page");return pg?pg.id.slice(2):null}
 function showPage(pg,noScroll){PAGES.forEach(x=>{document.getElementById("p-"+x).hidden=x!==pg});document.querySelectorAll("#menu a").forEach(a=>a.classList.toggle("on",a.dataset.page===pg));
   try{if(location.hash!=="#"+pg)history.replaceState(null,"","#"+pg)}catch(e){}
+  if(pg==="cabang")renderMap();
   Object.values(charts).forEach(c=>{try{c.resize()}catch(e){}});if(!noScroll)window.scrollTo({top:0,behavior:"auto"})}
 function goTo(id){const pg=pageOf(id);if(!pg)return;const cur=PAGES.find(x=>!document.getElementById("p-"+x).hidden);if(cur!==pg)showPage(pg,true);const el=document.getElementById(id);
   requestAnimationFrame(()=>{if(PAGES.includes(id)&&id===pg)window.scrollTo({top:0,behavior:"smooth"});else el.scrollIntoView({behavior:"smooth",block:"start"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),2200)})}
@@ -884,12 +1014,13 @@ document.getElementById("qs").insertAdjacentHTML("beforeend",QS.map((q,i)=>`<but
 document.getElementById("qs").addEventListener("click",e=>{const b=e.target.closest("[data-q]");if(!b)return;const q=QS[+b.dataset.q];chatEl.classList.add("open");say(q[0],"me");answer(q[1],{area:S.area})});
 document.getElementById("fab").addEventListener("click",()=>chatEl.classList.add("open"));
 document.getElementById("chatClose").addEventListener("click",()=>chatEl.classList.remove("open"));
+document.getElementById("foot").textContent=`Data per ${DATA.meta.periode}${DATA.meta.angkaContoh?" · Angka contoh":""} · Human Capital Division, Nasmoco Group`;
 say("Halo. Saya menjawab pertanyaan seputar manpower berdasarkan data dashboard bulan September 2026.");menu();
 
 /* ---------- tema ---------- */
 renderAll();{const h=location.hash.slice(1);showPage(PAGES.includes(h)?h:"ringkasan",true)}
 let rt;const rerender=()=>{clearTimeout(rt);rt=setTimeout(renderAll,60)};
-let rs;addEventListener("resize",()=>{clearTimeout(rs);rs=setTimeout(drawSparks,120)});
+let rs;addEventListener("resize",()=>{clearTimeout(rs);rs=setTimeout(()=>{drawSparks();renderMap()},120)});
 try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",rerender)}catch(e){}
 new MutationObserver(rerender).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 document.fonts&&document.fonts.ready.then(rerender);
