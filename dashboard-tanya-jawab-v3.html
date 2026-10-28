@@ -228,14 +228,46 @@ table.mini{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
 .todo li small{display:block;color:var(--muted);font-size:12.5px;margin-top:3px;font-weight:400}
 .todo .go{margin-left:auto;flex:none;border:1px solid var(--blue);background:var(--surface);color:var(--accent-ink);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
 .todo .go:hover{background:var(--navy);border-color:var(--navy);color:var(--surface)}
-.movers{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
-.movers li{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--surface-2);display:flex;flex-direction:column;gap:4px;min-width:0}
-.movers .m-top{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
-.movers .m-val{font-family:var(--f-display);font-size:20px;font-weight:700}
-.movers .m-val.up-bad,.movers .m-val.down-bad{color:var(--bad-ink)} .movers .m-val.up-good,.movers .m-val.down-good{color:var(--good-ink)}
-.movers .m-from{font-size:13px;color:var(--muted)}
-.movers .m-why{font-size:13.5px;border-top:1px dashed var(--line);padding-top:6px;margin-top:2px}
-.datanote{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.msum{display:flex;gap:10px;flex-wrap:wrap}
+.ms{display:flex;align-items:center;gap:10px;border-radius:var(--r);padding:8px 14px 8px 10px;font-size:12px;line-height:1.3;font-weight:600}
+.ms .n{font-family:var(--f-display);font-size:28px;font-weight:700;min-width:30px;text-align:center}
+.ms.bad{background:var(--bad-bg);color:var(--bad-ink)} .ms.good{background:var(--good-bg);color:var(--good-ink)}
+.movers{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.movers li{position:relative;border:1px solid var(--line);border-radius:var(--r);padding:14px 14px 12px 18px;background:var(--surface);display:flex;flex-direction:column;gap:4px;min-width:0;box-shadow:var(--shadow);overflow:hidden}
+.movers li::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--good)}
+.movers li.bad::before{background:var(--bad)}
+.movers .m-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-weight:600}
+.movers .m-top .k{display:inline-flex;align-items:center;gap:6px}
+.movers .m-top svg{width:16px;height:16px;color:var(--blue)}
+.atag{font-size:10.5px;font-weight:600;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);border-radius:99px;padding:1px 7px;white-space:nowrap}
+.movers .m-name{font-family:var(--f-display);font-size:17px;font-weight:700;color:var(--accent-ink);line-height:1.25}
+.movers .m-val{font-size:14px;font-weight:700;display:flex;align-items:center;gap:6px}
+.movers .m-val .ar{font-size:11px}
+.movers .m-val.bad{color:var(--bad-ink)} .movers .m-val.good{color:var(--good-ink)}
+.dbw{display:block;min-height:46px;margin:4px 0}
+.db text.t0v{font-weight:600;fill:var(--ink)}
+.db{display:block;overflow:visible}
+.db text{font-family:var(--f-body);font-size:11px;fill:var(--muted)}
+.db text.t1{font-weight:700;fill:var(--ink)}
+.movers .m-why{font-size:13px;border-top:1px solid var(--line);padding-top:8px;margin-top:4px;color:var(--ink)}
+.movers .m-why b{display:block;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:1px}
+.m-go{align-self:flex-start;margin-top:6px;border:0;background:none;padding:0;color:var(--accent-ink);font-size:12px;font-weight:700;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.m-go:hover{text-decoration-color:currentColor}
+.legend i.dot0{border-radius:50%;background:var(--surface);border:2px solid var(--muted);width:11px;height:11px}
+table.dept{min-width:760px}
+.dept th.r,.dept td.num{text-align:right}
+.dept th.dbh{text-align:center}
+.dept td{vertical-align:middle}
+.dept td.dn{font-weight:600;white-space:nowrap}
+.dept td.mu{color:var(--muted);font-weight:500}
+.dept td.dbc{padding:2px 4px;width:180px}
+.dept td.why{font-size:12.5px;color:var(--muted);min-width:220px}
+.datanote{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.datanote li{display:flex;gap:12px;align-items:flex-start;border-radius:var(--r);padding:12px 14px;border:1px solid var(--line)}
+.datanote li.warn{background:var(--note);border-color:color-mix(in srgb,var(--gold) 45%,transparent)}
+.datanote li .ic{flex:none;width:20px;height:20px;margin-top:1px}
+.datanote li.warn .ic{color:var(--warn)} .datanote li.good .ic{color:var(--good)}
+.datanote li p{margin:0}
 .subnav{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 14px}
 .subnav span{font-size:12px;color:var(--muted);font-weight:700;margin-right:6px;text-transform:uppercase;letter-spacing:.06em}
 .subnav a{color:var(--accent-ink);text-decoration:none;font-weight:600;font-size:13px;border:1px solid var(--line);border-radius:99px;padding:4px 11px}
@@ -292,6 +324,13 @@ table.mini{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
   .fab{display:flex;align-items:center;gap:8px;position:fixed;z-index:44;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));border:0;border-radius:99px;background:var(--navy);color:var(--surface);padding:12px 18px;font-weight:700;box-shadow:0 6px 20px rgb(0 0 0 / .3);cursor:pointer}
 }
 @media (max-width:640px){
+  table.dept{min-width:0}
+  table.dept thead{display:none}
+  table.dept tr{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-areas:"dn dn dn dn" "a db s ch" "why why why why";align-items:center;column-gap:6px;padding:10px 0;border-bottom:1px solid var(--line)}
+  table.dept td{border:0;padding:0}
+  .dept td.dn{grid-area:dn;white-space:normal;margin-bottom:2px}
+  .dept td.mu{grid-area:a} .dept td.dbc{grid-area:db;width:auto;overflow:hidden} .dept td.sep{grid-area:s} .dept td.chg{grid-area:ch;font-size:12px}
+  .dept td.why{grid-area:why;min-width:0;margin-top:2px}
   .maplist{display:flex;flex-wrap:wrap;gap:6px;margin:-8px 0 18px}
   .maplist button{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 10px;font-size:12.5px;font-weight:600;color:var(--accent-ink);cursor:pointer}
   .maplist i{width:10px;height:10px;border-radius:50%;flex:none}
@@ -402,23 +441,24 @@ table.mini{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
   <!-- HALAMAN 3 -->
   <div class="page" id="p-berubah" hidden>
   <section class="block" id="berubah">
-    <div class="block-head"><div><div class="eyebrow">Halaman 3 · Pergerakan bulan ini</div><h2>Apa yang berubah dibanding Agustus?</h2><p class="answer" id="ansBerubah"></p></div></div>
+    <div class="block-head"><div><div class="eyebrow">Halaman 3 · Pergerakan bulan ini</div><h2>Apa yang berubah dibanding Agustus?</h2><p class="answer" id="ansBerubah"></p></div><div class="msum" id="moveSum"></div></div>
     <ol class="movers" id="movers"></ol>
   </section>
   <section class="block" id="berubahLembur">
-    <div class="block-head"><div><div class="eyebrow">Lembur</div><h2>Cabang mana yang lemburnya paling bergerak?</h2></div></div>
-    <div class="cscroll"><div class="chart wide"><canvas id="cLbDelta"></canvas></div></div>
-    <p class="note">Perubahan rasio lembur September dibanding Agustus, dalam poin persen. Merah: naik. Hijau: turun.</p>
+    <div class="block-head"><div><div class="eyebrow">Lembur</div><h2>Cabang mana yang lemburnya paling bergerak?</h2><p class="answer" id="ansLbDelta"></p></div>
+      <div class="legend"><span><i style="background:var(--bad)"></i>Naik</span><span><i style="background:var(--good)"></i>Turun</span><span>Satuan: poin persen</span></div></div>
+    <div class="chart" id="lbDeltaBox"><canvas id="cLbDelta" aria-label="Perubahan rasio lembur per cabang"></canvas></div>
   </section>
   <section class="block" id="berubahDept">
-    <div class="block-head"><div><div class="eyebrow">Lembur Head Office</div><h2>Departemen mana yang lemburnya naik, dan mengapa?</h2></div></div>
-    <div class="cscroll"><table class="mini" id="tDept"></table></div>
+    <div class="block-head"><div><div class="eyebrow">Lembur Head Office</div><h2>Departemen mana yang lemburnya naik, dan mengapa?</h2></div>
+      <div class="legend"><span><i class="dot0"></i>Agustus</span><span><i style="background:var(--bad);border-radius:50%"></i>September</span></div></div>
+    <div class="cscroll"><table class="mini dept" id="tDept"></table></div>
   </section>
   <section class="block" id="catatan">
     <div class="block-head"><div><div class="eyebrow">Catatan data</div><h2>Data apa yang belum lengkap?</h2></div></div>
     <ul class="datanote">
-      <li><b>Produktivitas Aftersales September belum masuk.</b> Angka teknisi dan SA di seluruh dashboard memakai data Agustus.</li>
-      <li><b>Data lainnya sudah lengkap sampai September 2026:</b> manpower, lembur, turnover, produktivitas sales, serta GP dan OP.</li>
+      <li class="warn"><span class="ic"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l7 12.5H1z" fill="currentColor"/><path d="M8 6v3.6M8 11.6v.2" stroke="var(--surface)" stroke-width="1.8" stroke-linecap="round"/></svg></span><p><b>Produktivitas Aftersales September belum masuk.</b> Angka teknisi dan SA di seluruh dashboard memakai data Agustus.</p></li>
+      <li class="good"><span class="ic"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor"/><path d="M4.8 8.2l2.1 2.1 4.3-4.5" stroke="var(--surface)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p><b>Data lainnya sudah lengkap sampai September 2026:</b> manpower, lembur, turnover, produktivitas sales, serta GP dan OP.</p></li>
     </ul>
   </section>
   <button class="next" type="button" data-page="grafik">Lanjut: lihat semua grafik <span aria-hidden="true">→</span></button>
@@ -625,6 +665,7 @@ const valueLabels={id:"valueLabels",afterDatasetsDraw(ch){const m=(META[ch.canva
       const isLine=meta.type==="line";let y,col=css("--ink");ctx.font=(m.size?m.size:11)+"px "+css("--f-body");ctx.font="600 "+ctx.font;
       if(m.inside&&!isLine){const h=Math.abs(el.base-el.y);if(h<15)return;y=(el.y+el.base)/2+4;col="#ffffff"}
       else if(isLine){y=el.y-9}else{y=v<0?el.y+13:el.y-5}
+      if(ch.options.indexAxis==="y"&&!isLine){ctx.textAlign=v<0?"right":"left";ctx.fillStyle=col;ctx.fillText(t,el.x+(v<0?-6:6),el.y+4);ctx.textAlign="center";return}
       ctx.fillStyle=col;ctx.fillText(t,el.x,y)})});
   if(m.totals){const meta=ch.getDatasetMeta(ch.data.datasets.length-1);ctx.font="700 11.5px "+css("--f-body");ctx.fillStyle=css("--ink");meta.data.forEach((el,i)=>{ctx.fillText(m.totals[i],el.x,el.y-6)})}
   ctx.restore()}};
@@ -922,29 +963,71 @@ function renderRp(){
 
 function changes(cs){
   const out=[];
-  cs.forEach((c,ci)=>{
+  cs.forEach(c=>{
     const l1=c.lb[LAST]/c.gp[LAST],l0=c.lb[LAST-1]/c.gp[LAST-1];
-    out.push({c,kind:"Lembur",d:(l1-l0)*100,score:Math.abs(l1-l0)*100/1,val:`${(l1>l0?"▲ ":"▼ ")}${nf(Math.abs(l1-l0)*100,1)} poin`,from:`${pc(l0)} di Agustus menjadi ${pc(l1)}`,good:"down",why:c.whyLb,go:"lembur"});
+    out.push({c,kind:"Lembur",go:"lembur",d:(l1-l0)*100,score:Math.abs(l1-l0)*100,v0:l0*100,v1:l1*100,f:v=>nf(v,1)+"%",val:`${nf(Math.abs(l1-l0)*100,1)} poin`,good:"down",why:c.whyLb});
     const m1=mpTot(c.act),m0=mpTot(c.mpH[LAST-1]);
-    if(m1!==m0)out.push({c,kind:"Manpower",d:m1-m0,score:Math.abs(m1-m0)/3,val:`${m1>m0?"▲ ":"▼ "}${Math.abs(m1-m0)} orang`,from:`${m0} orang di Agustus menjadi ${m1}`,good:"up",why:m1>m0?"Pengisian posisi kosong sesuai MPP":"Karyawan keluar belum ada pengganti",go:"manpower"});
+    if(m1!==m0)out.push({c,kind:"Manpower",go:"manpower",d:m1-m0,score:Math.abs(m1-m0)/3,v0:m0,v1:m1,f:v=>nf(v,0),val:`${Math.abs(m1-m0)} orang`,good:"up",why:m1>m0?"Pengisian posisi kosong sesuai MPP":"Karyawan keluar belum ada pengganti"});
     const t1=toCount(c,"total","m"),t0=sum(["sales","afs","admin"].map(k=>c.to[k][LAST-1]));
-    if(t1!==t0)out.push({c,kind:"Turnover",d:t1-t0,score:Math.abs(t1-t0)/1.5,val:`${t1>t0?"▲ ":"▼ "}${Math.abs(t1-t0)} orang keluar`,from:`${t0} orang di Agustus menjadi ${t1}`,good:"down",why:c.to.sales[LAST]>=c.to.afs[LAST]?"Sebagian besar salesperson, alasan pribadi dan pindah ke mitra":"Sebagian besar teknisi, pindah ke bengkel lain",go:"turnover"});
+    if(t1!==t0)out.push({c,kind:"Turnover",go:"turnover",d:t1-t0,score:Math.abs(t1-t0)/1.5,v0:t0,v1:t1,f:v=>nf(v,0)+" orang",val:`${Math.abs(t1-t0)} orang keluar`,good:"down",why:c.to.sales[LAST]>=c.to.afs[LAST]?"Sebagian besar salesperson, alasan pribadi dan pindah ke mitra":"Sebagian besar teknisi, pindah ke bengkel lain"});
     const p1=c.prS[LAST],p0=c.prS[LAST-1];
-    out.push({c,kind:"Produktivitas sales",d:p1-p0,score:Math.abs(p1-p0)/.3,val:`${p1>p0?"▲ ":"▼ "}${nf(Math.abs(p1-p0),2)} unit per orang`,from:`${nf(p0,2)} di Agustus menjadi ${nf(p1,2)}`,good:"up",why:p1>p0?"Program penjualan akhir kuartal":"Pasokan unit model tertentu tertunda",go:"produktivitas"});
+    out.push({c,kind:"Produktivitas sales",go:"produktivitas",d:p1-p0,score:Math.abs(p1-p0)/.3,v0:p0,v1:p1,f:v=>nf(v,2),val:`${nf(Math.abs(p1-p0),2)} unit per orang`,good:"up",why:p1>p0?"Program penjualan akhir kuartal":"Pasokan unit model tertentu tertunda"});
   });
   return out.sort((a,b)=>b.score-a.score).slice(0,6);
 }
+// dua titik Agustus ke September; skala dibagi bersama apabila dom diberikan
+function dumbbell(v0,v1,f,st,w,dom){
+  const H=40,pad=10,lo=dom?dom[0]:Math.min(v0,v1),hi=dom?dom[1]:Math.max(v0,v1),sp=(hi-lo)||1,ex=dom?0:sp*.35;
+  const X=v=>pad+(w-2*pad)*(v-(lo-ex))/(sp+2*ex),x0=X(v0),x1=X(v1),y=dom?20:26,c=css("--"+st);
+  const right=x1>=x0,a0=right?"end":"start",a1=right?"start":"end",o=right?1:-1;
+  const near=Math.abs(x1-x0)<70&&!dom;
+  return`<svg class="db" viewBox="0 0 ${w} ${H}" width="${w}" height="${H}" role="img" aria-label="Agustus ${f(v0)}, September ${f(v1)}">
+    <line x1="${pad}" x2="${w-pad}" y1="${y}" y2="${y}" stroke="${css("--grid")}" stroke-width="2" stroke-linecap="round"/>
+    <line x1="${x0}" x2="${x1}" y1="${y}" y2="${y}" stroke="${c}" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+    <circle cx="${x0}" cy="${y}" r="5" fill="${css("--surface")}" stroke="${css("--muted")}" stroke-width="2"/>
+    <circle cx="${x1}" cy="${y}" r="6" fill="${c}" stroke="${css("--surface")}" stroke-width="2"/>
+    ${dom?"":`<text x="${near?(right?x0-8:x0+8):x0}" y="12" text-anchor="${near?a0:"middle"}" class="t0">Agu ${f(v0)}</text><text x="${near?(right?x1+8:x1-8):x1}" y="12" text-anchor="${near?a1:"middle"}" class="t1">Sep ${f(v1)}</text>`}</svg>`;
+}
+// garis dua titik: Agustus di kiri, September di kanan
+function slope(v0,v1,f,st,w){
+  const H=46,top=10,bot=36,lw=64,x0=lw,x1=w-lw,c=css("--"+st),lo=Math.min(v0,v1),hi=Math.max(v0,v1);
+  const Y=v=>hi===lo?(top+bot)/2:bot-(bot-top)*(v-lo)/(hi-lo),y0=Y(v0),y1=Y(v1);
+  return`<svg class="db" viewBox="0 0 ${w} ${H}" width="${w}" height="${H}" role="img" aria-label="Agustus ${f(v0)}, September ${f(v1)}">
+    <line x1="${x0}" x2="${x1}" y1="${y0}" y2="${y1}" stroke="${c}" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="${x0}" cy="${y0}" r="5" fill="${css("--surface")}" stroke="${css("--muted")}" stroke-width="2"/>
+    <circle cx="${x1}" cy="${y1}" r="6" fill="${c}" stroke="${css("--surface")}" stroke-width="2"/>
+    <text x="${x0-10}" y="${y0-2}" text-anchor="end">Agu</text><text x="${x0-10}" y="${y0+11}" text-anchor="end" class="t0v">${f(v0)}</text>
+    <text x="${x1+10}" y="${y1-2}">Sep</text><text x="${x1+10}" y="${y1+11}" class="t1">${f(v1)}</text></svg>`;
+}
 function renderChanges(){
   const cs=scope(),mv=changes(cs);
-  document.getElementById("movers").innerHTML=mv.map(x=>{const up=x.d>0;const cls=(up?"up-":"down-")+((up===(x.good==="up"))?"good":"bad");
-    return `<li><div class="m-top"><span>${x.kind}</span><span>Area ${x.c.a}</span></div><div><b>${x.c.n}</b></div><div class="m-val ${cls}">${x.val}</div><div class="m-from">${x.from}</div><div class="m-why"><b>Alasan:</b> ${x.why}</div></li>`}).join("");
-  const n=mv.filter(x=>(x.d>0)!==(x.good==="up")).length;
-  document.getElementById("ansBerubah").innerHTML=`Enam pergerakan terbesar di ${scopeName()} bulan ini, <b>${n} di antaranya ke arah yang kurang baik</b>. Alasan diambil dari laporan cabang dan data aktivitas lembur.`;
-  const d=cs.map(c=>(c.lb[LAST]/c.gp[LAST]-c.lb[LAST-1]/c.gp[LAST-1])*100);
-  const o=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>(v>0?"+":"")+nf(v,1),size:10},areaBands:bands(cs),tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>` ${it.raw>0?"+":""}${nf(it.raw,1)} poin`}})})});
-  o.scales.y.beginAtZero=true;o.scales.y.ticks.callback=v=>(v>0?"+":"")+v;
-  draw("cLbDelta",{data:{labels:cs.map(c=>c.n),datasets:[barDs(d,d.map(v=>v>0?css("--bad"):css("--good")),{label:"Perubahan",borderRadius:4,borderSkipped:false})]},options:o});
-  document.getElementById("tDept").innerHTML="<thead><tr><th>Departemen</th><th style='text-align:right'>Agustus</th><th style='text-align:right'>September</th><th style='text-align:right'>Perubahan</th><th>Alasan lembur</th></tr></thead><tbody>"+DEPT.map(d=>`<tr><td>${d[0]}</td><td class="num">${nf(d[1],1)}%</td><td class="num">${nf(d[2],1)}%</td><td class="num" style="color:var(--bad-ink)">▲ ${nf((d[2]/d[1]-1)*100,0)}%</td><td>${d[3]}</td></tr>`).join("")+"</tbody>";
+  const isBad=x=>(x.d>0)!==(x.good==="up");
+  const nBad=mv.filter(isBad).length;
+  document.getElementById("moveSum").innerHTML=`<div class="ms bad"><span class="n">${nBad}</span><span>pergerakan ke arah<br>yang kurang baik</span></div><div class="ms good"><span class="n">${mv.length-nBad}</span><span>pergerakan ke arah<br>yang lebih baik</span></div>`;
+  const ul=document.getElementById("movers");ul.innerHTML=mv.map((x,i)=>{const b=isBad(x),st=b?"bad":"good";
+    return `<li class="${st}"><div class="m-top"><span class="k">${icon(x.go)}${x.kind}</span><span class="atag">Area ${x.c.a}</span></div>
+      <div class="m-name">${x.c.n}</div>
+      <div class="m-val ${st}"><span class="ar">${x.d>0?"▲":"▼"}</span>${x.d>0?"Naik":"Turun"} ${x.val}</div>
+      <span class="dbw" data-i="${i}"></span>
+      <div class="m-why"><b>Alasan</b>${x.why}</div>
+      <button class="m-go" type="button" data-go="${x.go}">Lihat grafik ${x.kind.toLowerCase()}</button></li>`}).join("");
+  const drawDb=()=>ul.querySelectorAll(".dbw").forEach(el=>{const x=mv[+el.dataset.i];el.innerHTML=slope(x.v0,x.v1,x.f,isBad(x)?"bad":"good",Math.max(200,Math.floor(el.getBoundingClientRect().width)))});
+  drawDb();window.__drawDb=drawDb;
+  document.getElementById("ansBerubah").innerHTML=`Enam pergerakan terbesar di ${scopeName()} bulan ini, <b>${nBad} di antaranya ke arah yang kurang baik</b>. Alasan diambil dari laporan cabang dan data aktivitas lembur.`;
+  // perubahan lembur per cabang, diurutkan dari kenaikan terbesar
+  const rows=cs.map(c=>({c,d:(c.lb[LAST]/c.gp[LAST]-c.lb[LAST-1]/c.gp[LAST-1])*100})).sort((a,b)=>b.d-a.d);
+  const up=rows.filter(r=>r.d>0);
+  document.getElementById("ansLbDelta").innerHTML=up.length?`Lembur naik di <b>${up.length} dari ${rows.length} cabang</b>. Kenaikan terbesar di <b>${up.slice(0,3).map(r=>r.c.n+" (+"+nf(r.d,1)+" poin)").join(", ")}</b>.`:"Lembur turun di semua cabang.";
+  const box=document.getElementById("lbDeltaBox");box.style.height=(rows.length*24+40)+"px";
+  const o=baseOpts({indexAxis:"y",plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>(v>0?"+":"")+nf(v,1),size:11},tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>{const c=rows[it.dataIndex].c;return[` ${it.raw>0?"+":""}${nf(it.raw,1)} poin`,` Agustus ${pc(c.lb[LAST-1]/c.gp[LAST-1])}, September ${pc(c.lb[LAST]/c.gp[LAST])}`]}}})})});
+  o.layout={padding:{left:4,right:44,top:4}};o.interaction={mode:"nearest",axis:"y",intersect:false};
+  o.scales.x=Object.assign(o.scales.x,{grid:{color:ctx=>ctx.tick.value===0?css("--muted"):css("--grid"),lineWidth:ctx=>ctx.tick.value===0?1.5:1},beginAtZero:true,grace:"8%",ticks:Object.assign(o.scales.x.ticks,{callback:v=>(v>0?"+":"")+nf(v,1),maxRotation:0})});
+  o.scales.y=Object.assign(o.scales.y,{grid:{display:false},beginAtZero:false,grace:0,ticks:Object.assign(o.scales.y.ticks,{autoSkip:false,color:css("--ink"),font:{family:css("--f-body"),size:11.5,weight:"600"}})});
+  draw("cLbDelta",{data:{labels:rows.map(r=>r.c.n),datasets:[barDs(rows.map(r=>r.d),rows.map(r=>r.d>0?css("--bad"):css("--good")),{label:"Perubahan",borderRadius:4,borderSkipped:false,maxBarThickness:16})]},options:o});
+  // lembur departemen HO
+  const mx=Math.max(...DEPT.map(d=>Math.max(d[1],d[2])))*1.08;
+  document.getElementById("tDept").innerHTML="<thead><tr><th>Departemen</th><th class='r'>Agustus</th><th class='dbh'>Agustus ke September</th><th class='r'>September</th><th class='r'>Perubahan</th><th>Alasan lembur</th></tr></thead><tbody>"+
+    DEPT.slice().sort((a,b)=>(b[2]-b[1])-(a[2]-a[1])).map(d=>{const st=d[2]>d[1]?"bad":"good";return`<tr><td class="dn">${d[0]}</td><td class="num mu">${nf(d[1],1)}%</td><td class="dbc">${dumbbell(d[1],d[2],v=>nf(v,1)+"%",st,170,[0,mx])}</td><td class="num sep">${nf(d[2],1)}%</td><td class="num chg" style="color:var(--${st}-ink)">${d[2]>d[1]?"▲":"▼"} ${nf(Math.abs(d[2]-d[1]),1)} poin</td><td class="why">${d[3]}</td></tr>`}).join("")+"</tbody>";
 }
 function renderTodo(){
   const cs=scope(),items=[];
@@ -974,6 +1057,7 @@ function pageOf(id){const el=document.getElementById(id);if(!el)return null;cons
 function showPage(pg,noScroll){PAGES.forEach(x=>{document.getElementById("p-"+x).hidden=x!==pg});document.querySelectorAll("#menu a").forEach(a=>a.classList.toggle("on",a.dataset.page===pg));
   try{if(location.hash!=="#"+pg)history.replaceState(null,"","#"+pg)}catch(e){}
   if(pg==="cabang")renderMap();
+  if(pg==="berubah"&&window.__drawDb)window.__drawDb();
   Object.values(charts).forEach(c=>{try{c.resize()}catch(e){}});if(!noScroll)window.scrollTo({top:0,behavior:"auto"})}
 function goTo(id){const pg=pageOf(id);if(!pg)return;const cur=PAGES.find(x=>!document.getElementById("p-"+x).hidden);if(cur!==pg)showPage(pg,true);const el=document.getElementById(id);
   requestAnimationFrame(()=>{if(PAGES.includes(id)&&id===pg)window.scrollTo({top:0,behavior:"smooth"});else el.scrollIntoView({behavior:"smooth",block:"start"});el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),2200)})}
@@ -1068,7 +1152,7 @@ say("Halo. Saya menjawab pertanyaan seputar manpower berdasarkan data dashboard 
 /* ---------- tema ---------- */
 renderAll();{const h=location.hash.slice(1);showPage(PAGES.includes(h)?h:"ringkasan",true)}
 let rt;const rerender=()=>{clearTimeout(rt);rt=setTimeout(renderAll,60)};
-let rs;addEventListener("resize",()=>{clearTimeout(rs);rs=setTimeout(()=>{drawSparks();renderMap()},120)});
+let rs;addEventListener("resize",()=>{clearTimeout(rs);rs=setTimeout(()=>{drawSparks();renderMap();window.__drawDb&&window.__drawDb()},120)});
 try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",rerender)}catch(e){}
 new MutationObserver(rerender).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 document.fonts&&document.fonts.ready.then(rerender);
