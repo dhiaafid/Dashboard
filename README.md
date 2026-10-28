@@ -4,6 +4,8 @@ File yang dibuka atasan: **`dashboard-tanya-jawab-v3.html`**. Satu file, dapat d
 
 `sketsa-dashboard.html` adalah sketsa v2 sebagai acuan dan tidak diubah.
 
+**`dashboard-tanya-jawab-v4.html`** adalah HC Connect · Command Center: tampilan pusat kendali dengan asisten tanya jawab (tanpa AI). Sumbernya `src/dashboard-v4.src.html`, disusun dengan `node tools/build.js v4`. Data yang dipakai sama (`src/data-contoh.json`).
+
 ## Susunan
 
 | Bagian | Isi |

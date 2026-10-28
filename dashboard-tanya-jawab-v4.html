@@ -251,6 +251,18 @@ table.heat{border-collapse:separate;border-spacing:0;width:100%;min-width:720px;
 .m-ask:hover{box-shadow:0 0 12px rgb(56 189 248 / .3)}
 @media (max-width:1020px){.mgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){.mgrid{grid-template-columns:minmax(0,1fr)}}
+/* Eksplorasi grafik v4 */
+.subnav{position:sticky;top:112px;z-index:15;backdrop-filter:blur(10px);border-radius:14px;box-shadow:var(--shadow)}
+.subnav a{display:inline-flex;align-items:center;gap:6px;background:rgb(255 255 255 / .03)}
+.subnav a svg{width:15px;height:15px;color:var(--navy)}
+.subnav a:hover{border-color:var(--navy);box-shadow:0 0 12px rgb(56 189 248 / .25)}
+.secask{flex:none;display:inline-flex;align-items:center;gap:6px;border:1px solid color-mix(in srgb,var(--navy) 50%,transparent);background:none;color:var(--accent-ink);border-radius:10px;padding:7px 13px;font-size:12.5px;font-weight:700;cursor:pointer;align-self:flex-start}
+.secask svg{width:16px;height:16px}
+.secask:hover{box-shadow:0 0 14px rgb(56 189 248 / .3)}
+#p-grafik .sub-card{border-radius:14px;background:rgb(255 255 255 / .03)}
+:root[data-theme="light"] #p-grafik .sub-card{background:var(--surface)}
+#p-grafik .sub-head h3{font-size:14.5px}
+@media (max-width:640px){.subnav{position:static}}
 /* Batang progres MP vs MPP */
 .pbleg{margin:-2px 0 10px}
 .pbleg i.band{background:var(--good-bg);border:1px solid color-mix(in srgb,var(--good) 45%,transparent)}
@@ -775,11 +787,11 @@ section.block{border-radius:18px;box-shadow:var(--shadow);padding:20px}
   <!-- HALAMAN 4 -->
   <div class="page" id="p-grafik" hidden>
   <nav class="subnav" id="subnav" aria-label="Kategori grafik">
-    <span>Halaman 4 · Semua grafik</span>
-    <a href="#manpower">Manpower</a><a href="#lembur">Lembur</a><a href="#turnover">Turnover</a><a href="#produktivitas">Produktivitas unit</a><a href="#rupiah">Produktivitas rupiah</a>
+    <span>Halaman 4 · Eksplorasi grafik</span>
+    <a href="#manpower"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 20v-1.5a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20"/><circle cx="9" cy="7.5" r="3.5"/><path d="M22 20v-1.5a4 4 0 0 0-3-3.85M16 4.15a3.5 3.5 0 0 1 0 6.7"/></svg>Manpower</a><a href="#lembur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>Lembur</a><a href="#turnover"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 20H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4"/><path d="M15 16l4-4-4-4"/><path d="M19 12H9"/></svg>Turnover</a><a href="#produktivitas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>Produktivitas unit</a><a href="#rupiah"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></svg>Produktivitas rupiah</a>
   </nav>
   <section class="block" id="manpower">
-    <div class="block-head"><div><div class="eyebrow">Manpower</div><h2>Apakah jumlah orangnya sudah sesuai rencana?</h2><p class="answer" id="ansMp"></p></div></div>
+    <div class="block-head"><div><div class="eyebrow">Manpower</div><h2>Apakah jumlah orangnya sudah sesuai rencana?</h2><p class="answer" id="ansMp"></p></div><button class="secask" type="button" data-asktopic="manpower"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z'/></svg>Tanyakan</button></div>
     <div class="panel-grid">
       <div class="sub-card">
         <div class="sub-head"><h3>Manpower HO NRM dan Nasmoco</h3><div class="tabs" data-k="mpT"><button data-v="y" aria-pressed="true">Tahunan</button><button data-v="m" aria-pressed="false">Bulanan</button></div></div>
@@ -796,7 +808,7 @@ section.block{border-radius:18px;box-shadow:var(--shadow);padding:20px}
   </section>
 
   <section class="block" id="lembur">
-    <div class="block-head"><div><div class="eyebrow">Lembur</div><h2>Apakah beban kerja melebihi jam normal?</h2><p class="answer" id="ansLb"></p></div></div>
+    <div class="block-head"><div><div class="eyebrow">Lembur</div><h2>Apakah beban kerja melebihi jam normal?</h2><p class="answer" id="ansLb"></p></div><button class="secask" type="button" data-asktopic="lembur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z'/></svg>Tanyakan</button></div>
     <div class="panel-grid">
       <div class="sub-card">
         <div class="sub-head"><h3>Rasio lembur per bulan</h3><div class="tabs" data-k="lbT"><button data-v="nsm" aria-pressed="true">Nasmoco Group</button><button data-v="nrm" aria-pressed="false">NRM (Head Office)</button></div></div>
@@ -813,7 +825,7 @@ section.block{border-radius:18px;box-shadow:var(--shadow);padding:20px}
   </section>
 
   <section class="block" id="turnover">
-    <div class="block-head"><div><div class="eyebrow">Turnover</div><h2>Fungsi dan cabang mana yang paling banyak kehilangan orang?</h2><p class="answer" id="ansTo"></p></div></div>
+    <div class="block-head"><div><div class="eyebrow">Turnover</div><h2>Fungsi dan cabang mana yang paling banyak kehilangan orang?</h2><p class="answer" id="ansTo"></p></div><button class="secask" type="button" data-asktopic="turnover"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z'/></svg>Tanyakan</button></div>
     <div class="panel-grid">
       <div class="sub-card">
         <div class="sub-head"><h3>Turnover per fungsi</h3>
@@ -831,7 +843,7 @@ section.block{border-radius:18px;box-shadow:var(--shadow);padding:20px}
   </section>
 
   <section class="block" id="produktivitas">
-    <div class="block-head"><div><div class="eyebrow">Produktivitas per unit</div><h2>Apakah beban kerja sepadan dengan jumlah orangnya?</h2><p class="answer" id="ansPr"></p></div></div>
+    <div class="block-head"><div><div class="eyebrow">Produktivitas per unit</div><h2>Apakah beban kerja sepadan dengan jumlah orangnya?</h2><p class="answer" id="ansPr"></p></div><button class="secask" type="button" data-asktopic="prod"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z'/></svg>Tanyakan</button></div>
     <div class="panel-grid">
       <div class="sub-card">
         <div class="sub-head"><h3>Tren produktivitas</h3>
@@ -850,7 +862,7 @@ section.block{border-radius:18px;box-shadow:var(--shadow);padding:20px}
   </section>
 
   <section class="block" id="rupiah">
-    <div class="block-head"><div><div class="eyebrow">Produktivitas rupiah</div><h2>Apakah biaya orang sepadan dengan hasilnya?</h2><p class="answer" id="ansRp"></p></div></div>
+    <div class="block-head"><div><div class="eyebrow">Produktivitas rupiah</div><h2>Apakah biaya orang sepadan dengan hasilnya?</h2><p class="answer" id="ansRp"></p></div><button class="secask" type="button" data-asktopic="biaya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z'/></svg>Tanyakan</button></div>
     <div class="panel-grid">
       <div class="sub-card">
         <div class="sub-head"><h3>Laba operasional per Rp1 biaya orang (OP/EC)</h3><div class="tabs" data-k="opT"><button data-v="sales" aria-pressed="true">Tim Sales</button><button data-v="gr" aria-pressed="false">Aftersales GR</button><button data-v="bp" aria-pressed="false">Aftersales BP</button></div></div>
@@ -985,7 +997,7 @@ function baseOpts(o){
             y:{grid:{color:grid},ticks:{color:ink,font:{family:css("--f-body"),size:11}},border:{display:false},beginAtZero:true,grace:"14%"}}},o||{});
 }
 function draw(id,cfg){if(charts[id])charts[id].destroy();const pl=cfg.options.plugins;META[id]={ref:pl.refLines,bands:pl.areaBands,labels:pl.valueLabels};delete pl.refLines;delete pl.areaBands;delete pl.valueLabels;if(META[id].bands)cfg.options.layout={padding:{top:30}};charts[id]=new Chart(document.getElementById(id),cfg)}
-const barDs=(data,color,extra)=>Object.assign({type:"bar",data,backgroundColor:color,borderRadius:{topLeft:4,topRight:4},borderSkipped:"bottom",maxBarThickness:28,categoryPercentage:.8,barPercentage:.9},extra||{});
+const barDs=(data,color,extra)=>Object.assign({type:"bar",glow:true,data,backgroundColor:color,borderRadius:{topLeft:4,topRight:4},borderSkipped:"bottom",maxBarThickness:28,categoryPercentage:.8,barPercentage:.9},extra||{});
 
 /* batang mendatar per cabang, dikelompokkan per area */
 function hcab(id,cs,datasets,o){
@@ -1275,6 +1287,7 @@ function renderSel(rk){
     <div class="sp-tr"><div class="sp-l">Rasio lembur Januari sampai September</div>${spark({v:s,fmt:x=>nf(x,1)+"%",ref:{v:10,label:"batas 10%"}},w)}<span class="skey"><i class="dash" style="border-color:var(--bad)"></i>batas 10%</span><p class="sp-why"><b>Alasan lembur</b>${c.whyLb}</p></div>
     <div class="chips"><button type="button" class="primary" data-cab="${c.n}">Profil lengkap</button><button type="button" data-askcab="${c.n}">Tanyakan ke asisten</button></div>`;
 }
+document.getElementById("p-grafik").addEventListener("click",e=>{const b=e.target.closest("[data-asktopic]");if(!b)return;openDock();say(esc(b.parentElement.querySelector("h2").textContent),"me");ask(b.dataset.asktopic,{area:S.area})});
 document.getElementById("movers").addEventListener("click",e=>{const b=e.target.closest("[data-askm]");if(!b)return;const x=window.__movers[+b.dataset.askm],k={Lembur:"lembur",Manpower:"manpower",Turnover:"turnover","Produktivitas sales":"prod"}[x.kind];
   openDock();say(esc(`${x.kind} ${x.c.n}`),"me");ask(k,{cab:x.c.n})});
 document.getElementById("p-cabang").addEventListener("click",e=>{
@@ -1310,7 +1323,7 @@ function renderLb(){
   const o=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,1)+"%"},refLines:[{value:10,label:"Batas 10%",color:css("--bad"),dash:[5,4]},{value:9.5,label:"",color:css("--warn"),dash:[2,4]}],tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>` Rasio ${nf(it.raw,1)}%`,afterLabel:it=>[` Gaji pokok Rp${nf(gp[it.dataIndex],0)} juta`,` Lembur Rp${nf(lb[it.dataIndex],1)} juta`]}})})});
   o.scales.y.suggestedMax=12;o.scales.y.ticks.callback=v=>nf(v,v%1?1:0)+"%";
   document.getElementById("tLbTrend").innerHTML="<thead><tr><th></th>"+MONL.map(m=>`<th>${m}</th>`).join("")+"</tr></thead><tbody><tr><td>Gaji pokok (juta)</td>"+gp.map(x=>`<td>${nf(x,0)}</td>`).join("")+"</tr><tr><td>Lembur (juta)</td>"+lb.map(x=>`<td>${nf(x,1)}</td>`).join("")+"</tr></tbody>";
-  draw("cLbTrend",{data:{labels:MONL,datasets:[{type:"line",label:ttl,data:r,borderColor:css("--bar"),backgroundColor:css("--bar"),borderWidth:2,pointRadius:4,pointHoverRadius:6,tension:.25}]},options:o});
+  draw("cLbTrend",{data:{labels:MONL,datasets:[{type:"line",label:ttl,data:r,borderColor:css("--bar"),fill:"origin",backgroundColor:c=>{const a=c.chart.chartArea;if(!a)return"transparent";const g=c.chart.ctx.createLinearGradient(0,a.top,0,a.bottom);g.addColorStop(0,css("--wash"));g.addColorStop(1,"rgba(0,0,0,0)");return g},pointBackgroundColor:css("--bar"),borderWidth:2,pointRadius:4,pointHoverRadius:6,tension:.25}]},options:o});
   const v=cs.map(c=>cLb(c)*100),cols=v.map(x=>x>10?css("--bad"):(x>=9.5?css("--warn"):css("--bar")));
   const o2=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,1),size:10},areaBands:bands(cs),refLines:[{value:10,label:"10%",color:css("--bad"),dash:[5,4]},{value:9.5,label:"",color:css("--warn"),dash:[2,4]}],tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>{const c=cs[it.dataIndex];return[` Rasio ${nf(it.raw,1)}%`,` Gaji pokok Rp${nf(S.per==="m"?c.gp[LAST]:sum(c.gp),0)} juta`,` Lembur Rp${nf(S.per==="m"?c.lb[LAST]:sum(c.lb),1)} juta`]}}})})});
   o2.scales.y.ticks.callback=x=>nf(x,x%1?1:0)+"%";o2.scales.y.suggestedMax=13;
@@ -1342,7 +1355,7 @@ function renderPr(){
   if(S.prT==="y"){labels=FY;const mv=m.filter(x=>x!=null);v=YR.pr[f].concat([sum(mv)/mv.length])}else{labels=MONL;v=m}
   const o=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,2)},tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>it.raw==null?" Data belum masuk":` ${nf(it.raw,2)} ${f==="sales"?"unit per salesperson":"unit entry per orang per hari"}`}})})});
   o.scales.y.beginAtZero=false;
-  draw("cPrTrend",{data:{labels,datasets:[{type:"line",data:v,borderColor:css("--bar"),backgroundColor:css("--bar"),borderWidth:2,pointRadius:4,tension:.25,spanGaps:false}]},options:o});
+  draw("cPrTrend",{data:{labels,datasets:[{type:"line",data:v,borderColor:css("--bar"),fill:"origin",backgroundColor:c=>{const a=c.chart.chartArea;if(!a)return"transparent";const g=c.chart.ctx.createLinearGradient(0,a.top,0,a.bottom);g.addColorStop(0,css("--wash"));g.addColorStop(1,"rgba(0,0,0,0)");return g},pointBackgroundColor:css("--bar"),borderWidth:2,pointRadius:4,tension:.25,spanGaps:false}]},options:o});
   document.getElementById("prNote").textContent=f==="sales"?"Unit retail terjual dibagi jumlah salesperson. Nilai YTD adalah rata-rata bulanan.":(f==="sa"?"Unit entry total dibagi jumlah SA dibagi hari kerja.":"Unit entry bengkel sendiri dibagi jumlah teknisi bengkel sendiri dibagi hari kerja.")+(f!=="sales"&&S.prT==="m"?" September belum masuk.":"");
   const k=S.prC,vals=cs.map(c=>prVal(c,k,S.per)),md=median(CAB.map(c=>prVal(c,k,S.per)));
   const cols=vals.map(x=>{const s=status("rel",x,md);return s==="bad"?css("--bad"):(s==="warn"?css("--warn"):css("--bar"))});
