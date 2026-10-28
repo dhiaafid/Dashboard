@@ -52,6 +52,10 @@ NAMES.forEach((g,ai)=>g.forEach(n=>{
     gpecYtdBulan:gpecYtdBulan.map(r2),
     alasanLembur:WHY_LB[idx++%WHY_LB.length]});
 }));
+// FY 2025 per cabang (pembanding YTD, seperti Dashboard A: FY 2025 vs YTD 2026)
+const R2=rng(20251231);
+cabang.forEach(c=>{const lb=c.lembur.reduce((a,b)=>a+b,0)/c.gajiPokok.reduce((a,b)=>a+b,0),ps=c.prodSales.reduce((a,b)=>a+b,0)/9;
+  c.fy25={rasioLembur:r3(lb*(.9+R2()*.22)),prodSales:r2(ps*(.92+R2()*.16))}});
 const hoGaji=MON.map(()=>between(935,975)),hoRat=[.036,.034,.047,.044,.039,.037,.038,.041,.049];
 const DATA={
   meta:{judul:"Dashboard Manpower",periode:"September 2026",bulanLalu:"Agustus",tahun:2026,

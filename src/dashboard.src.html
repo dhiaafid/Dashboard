@@ -215,6 +215,10 @@ table.heat{border-collapse:separate;border-spacing:0;width:100%;min-width:720px;
 .chart.wide{min-width:940px;height:300px}
 .cscroll{overflow-x:auto}
 .note{font-size:12px;color:var(--muted);margin:8px 0 0}
+.defnote{display:block;background:var(--note);border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:8px;padding:7px 10px;color:var(--ink);margin-top:10px}
+.defnote::before{content:"Note: ";font-weight:700;color:var(--gold-ink)}
+.lg-under{margin-top:10px}
+.legend i.ln{width:16px;height:0;border-radius:0;border-top:2px dashed;background:none;vertical-align:3px}
 .flag{display:inline-block;background:var(--note);border:1px solid color-mix(in srgb,var(--gold) 50%,transparent);color:var(--gold-ink);font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;margin-top:8px}
 .series-key{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted);margin-bottom:6px}
 .series-key i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
@@ -447,7 +451,7 @@ table.dept{min-width:760px}
     <div class="maplist" id="mapList" aria-label="Daftar cabang"></div>
     <div class="tbl-head"><h3>Rincian enam metrik per cabang</h3><button class="reset" id="heatReset" type="button" hidden>Kembalikan urutan per area</button></div>
     <div class="tscroll"><table class="heat" id="heat"></table></div>
-    <p class="note">Batas warna: MP 95 sampai 105% dari MPP, lembur di bawah 9,5% (batas 10%), turnover YTD di bawah 8%, produktivitas dan GP/EC dibanding median 24 cabang (merah apabila lebih dari 10% di bawah median).</p>
+    <p class="note defnote">Batas aman: MP 95 sampai 105% dari MPP. Lembur di bawah 9,5% (batas 10%). Turnover YTD di bawah 8%. Produktivitas dan GP/EC dibanding median 24 cabang, merah apabila lebih dari 10% di bawah median.</p>
   </section>
   <button class="next" type="button" data-page="berubah">Lanjut: apa yang berubah bulan ini? <span aria-hidden="true">→</span></button>
   </div>
@@ -491,7 +495,7 @@ table.dept{min-width:760px}
         <div class="sub-head"><h3>Manpower HO NRM dan Nasmoco</h3><div class="tabs" data-k="mpT"><button data-v="y" aria-pressed="true">Tahunan</button><button data-v="m" aria-pressed="false">Bulanan</button></div></div>
         <div class="series-key" id="mpKey"></div>
         <div class="chart tall"><canvas id="cMpTrend" aria-label="Grafik manpower"></canvas></div>
-        <p class="note">Angka di atas batang: total orang. Garis kuning putus-putus: MPP 2026. Tidak termasuk mitra sales.</p>
+        <p class="note defnote">Tidak termasuk mitra sales. MPP Admin termasuk BOC dan BOD PT. MPP OS termasuk SSP, Billing, dan TOWAS.</p>
       </div>
       <div class="sub-card">
         <div class="sub-head"><h3>Manpower per cabang dibanding MPP</h3><div class="tabs" data-k="mpC"><button data-v="total" aria-pressed="true">Total</button><button data-v="sales" aria-pressed="false">Sales</button><button data-v="afs" aria-pressed="false">Aftersales</button><button data-v="admin" aria-pressed="false">Admin</button><button data-v="os" aria-pressed="false">OS</button></div></div>
@@ -508,12 +512,12 @@ table.dept{min-width:760px}
         <div class="sub-head"><h3>Rasio lembur per bulan</h3><div class="tabs" data-k="lbT"><button data-v="nsm" aria-pressed="true">Nasmoco Group</button><button data-v="nrm" aria-pressed="false">NRM (Head Office)</button></div></div>
         <div class="chart"><canvas id="cLbTrend"></canvas></div>
         <div class="cscroll"><table class="mini rowtable" id="tLbTrend"></table></div>
-        <p class="note">Rasio = biaya lembur dibagi gaji pokok seluruh staff, organik dan OS. Rupiah dalam juta.</p>
+        <p class="note defnote">Rasio = lembur dibagi gaji pokok seluruh staff, organik dan OS. Rupiah dalam juta.</p>
       </div>
       <div class="sub-card">
         <div class="sub-head"><h3>Rasio lembur per cabang</h3></div>
         <div class="chart hcab"><canvas id="cLbCab"></canvas></div>
-        <p class="note">Garis merah: batas 10%. Garis kuning: mulai waspada 9,5%.</p>
+        <div class="legend lg-under"><span><i class="ln" style="border-color:var(--bad)"></i>Batas 10%</span><span><i class="ln" style="border-color:var(--warn)"></i>Waspada 9,5%</span><span><i style="background:var(--bad)"></i>Di atas batas</span><span><i style="background:var(--warn)"></i>9,5 sampai 10%</span></div>
       </div>
     </div>
   </section>
@@ -526,7 +530,7 @@ table.dept{min-width:760px}
           <div class="tabs" data-k="toF"><button data-v="sales" aria-pressed="true">Salesperson</button><button data-v="afs" aria-pressed="false">Technician</button><button data-v="admin" aria-pressed="false">Admin</button></div></div>
         <div class="tabs" data-k="toT" style="margin-bottom:8px"><button data-v="y" aria-pressed="true">Tahunan</button><button data-v="m" aria-pressed="false">Bulanan</button></div>
         <div class="chart"><canvas id="cToTrend"></canvas></div>
-        <p class="note">Turnover % = jumlah keluar dibagi rata-rata karyawan (awal dan akhir periode). Angka dalam kurung: jumlah orang keluar.</p>
+        <div class="legend lg-under"><span>Angka dalam kurung: jumlah orang keluar</span></div><p class="note defnote">Turnover = jumlah keluar dibagi rata-rata karyawan awal dan akhir periode. Salesperson: MP salesman. Technician: teknisi GR dan BP. Admin: staff admin organik dan OS, termasuk CRC.</p>
       </div>
       <div class="sub-card">
         <div class="sub-head"><h3>Turnover per cabang</h3><div class="tabs" data-k="toC"><button data-v="total" aria-pressed="true">Total</button><button data-v="sales" aria-pressed="false">Sales</button><button data-v="afs" aria-pressed="false">Aftersales</button><button data-v="admin" aria-pressed="false">Admin</button></div></div>
@@ -544,12 +548,12 @@ table.dept{min-width:760px}
           <div class="tabs" data-k="prF"><button data-v="sales" aria-pressed="true">Salesperson</button><button data-v="sa" aria-pressed="false">SA GR</button><button data-v="tech" aria-pressed="false">Teknisi GR</button></div></div>
         <div class="tabs" data-k="prT" style="margin-bottom:8px"><button data-v="y" aria-pressed="true">Tahunan</button><button data-v="m" aria-pressed="false">Bulanan</button></div>
         <div class="chart"><canvas id="cPrTrend"></canvas></div>
-        <p class="note" id="prNote"></p>
+        <p class="note defnote" id="prNote"></p>
       </div>
       <div class="sub-card">
         <div class="sub-head"><h3>Produktivitas per cabang</h3><div class="tabs" data-k="prC"><button data-v="sales" aria-pressed="true">Salesperson</button><button data-v="tech" aria-pressed="false">Teknisi GR</button></div></div>
         <div class="chart hcab"><canvas id="cPrCab"></canvas></div>
-        <p class="note">Garis abu-abu: median 24 cabang.</p>
+        <div class="legend lg-under"><span><i class="ln" style="border-color:var(--muted)"></i>Median 24 cabang</span><span><i style="background:var(--warn)"></i>Sampai 10% di bawah median</span><span><i style="background:var(--bad)"></i>Lebih dari 10% di bawah median</span></div>
         <span class="flag" id="prFlag" hidden>Data Aftersales September belum masuk. Yang ditampilkan data Agustus.</span>
       </div>
     </div>
@@ -561,7 +565,7 @@ table.dept{min-width:760px}
       <div class="sub-card">
         <div class="sub-head"><h3>Laba operasional per Rp1 biaya orang (OP/EC)</h3><div class="tabs" data-k="opT"><button data-v="sales" aria-pressed="true">Tim Sales</button><button data-v="gr" aria-pressed="false">Aftersales GR</button><button data-v="bp" aria-pressed="false">Aftersales BP</button></div></div>
         <div class="chart"><canvas id="cOp"></canvas></div>
-        <p class="note">Angka 2 berarti setiap Rp1 biaya orang menghasilkan Rp2 laba operasional.</p>
+        <p class="note defnote">Angka 2 berarti setiap Rp1 biaya orang menghasilkan Rp2 laba operasional.</p>
       </div>
       <div class="sub-card">
         <div class="sub-head"><h3>GP/EC bulanan dan YTD</h3><div class="tabs" data-k="gpT"><button data-v="total" aria-pressed="true">Total</button><button data-v="sales" aria-pressed="false">Salesperson</button><button data-v="sa" aria-pressed="false">SA GR</button><button data-v="tech" aria-pressed="false">Teknisi GR</button></div></div>
@@ -570,7 +574,7 @@ table.dept{min-width:760px}
       <div class="sub-card">
         <div class="sub-head"><h3>Laba kotor per Rp1 biaya orang (GP/EC) per cabang, YTD</h3><div class="tabs" data-k="gpC"><button data-v="total" aria-pressed="true">Total</button><button data-v="sales" aria-pressed="false">Salesperson</button><button data-v="sa" aria-pressed="false">SA GR</button><button data-v="tech" aria-pressed="false">Teknisi GR</button></div></div>
         <div class="chart hcab"><canvas id="cGpCab"></canvas></div>
-        <p class="note">Hijau: di atas median. Kuning: sampai 10% di bawah median. Merah: lebih dari 10% di bawah median. GP/EC selalu memakai YTD agar adil antar cabang.</p>
+        <div class="legend lg-under"><span><i class="ln" style="border-color:var(--muted)"></i>Median 24 cabang</span><span><i style="background:var(--good)"></i>Di atas median</span><span><i style="background:var(--warn)"></i>Sampai 10% di bawah median</span><span><i style="background:var(--bad)"></i>Lebih dari 10% di bawah median</span></div><p class="note defnote">EC total: organik, OS, dan managerial.</p>
       </div>
     </div>
   </section>
@@ -601,7 +605,7 @@ const MONL=MON.map(m=>m+" "+String(DATA.meta.tahun).slice(2));
 const FY=DATA.meta.tahunan;
 const CAB=DATA.cabang.map(c=>({n:c.nama,a:c.area,kota:c.kota,lat:c.lat,lon:c.lon,mpp:c.mpp,act:c.mp[c.mp.length-1],mpH:c.mp,
   gp:c.gajiPokok,lb:c.lembur,to:c.keluar,prS:c.prodSales,prT:c.prodTeknisi,prA:c.prodSA,
-  gpec:c.gpecYtd,gpPrev:c.gpecYtdAgustus,gpH:c.gpecYtdBulan,whyLb:c.alasanLembur}));
+  gpec:c.gpecYtd,gpPrev:c.gpecYtdAgustus,fy25:c.fy25,gpH:c.gpecYtdBulan,whyLb:c.alasanLembur}));
 const HO={mpp:DATA.headOffice.mpp,act:DATA.headOffice.mp};
 const NRM={gp:DATA.headOffice.gajiPokok,lb:DATA.headOffice.lembur};
 const T=DATA.tahunan;
@@ -668,8 +672,10 @@ const barDs=(data,color,extra)=>Object.assign({type:"bar",data,backgroundColor:c
 /* batang mendatar per cabang, dikelompokkan per area */
 function hcab(id,cs,datasets,o){
   const idx=[],labels=[];
-  if(!S.area)[1,2,3].forEach(a=>{idx.push(-1);labels.push("AREA "+a);cs.forEach((c,j)=>{if(c.a===a){idx.push(j);labels.push(c.n)}})});
-  else cs.forEach((c,j)=>{idx.push(j);labels.push(c.n)});
+  // urut dari nilai terbesar di setiap area, seperti Dashboard B dan C
+  const val=datasets[0].data,ord=js=>js.sort((x,y)=>(val[y]??-1e9)-(val[x]??-1e9));
+  if(!S.area)[1,2,3].forEach(a=>{idx.push(-1);labels.push("AREA "+a);ord(cs.map((c,j)=>j).filter(j=>cs[j].a===a)).forEach(j=>{idx.push(j);labels.push(cs[j].n)})});
+  else ord(cs.map((c,j)=>j)).forEach(j=>{idx.push(j);labels.push(cs[j].n)});
   datasets.forEach(d=>{d.data=idx.map(j=>j<0?null:d.data[j]);if(Array.isArray(d.backgroundColor))d.backgroundColor=idx.map(j=>j<0?"transparent":d.backgroundColor[j]);d.maxBarThickness=16;d.borderRadius=4;d.borderSkipped="start";d.categoryPercentage=.82;d.barPercentage=.9});
   const pl=o.plugins;delete pl.areaBands;
   if(pl.valueLabels){const f=pl.valueLabels.fmt;pl.valueLabels.fmt=(v,di,i)=>f(v,di,idx[i])}
@@ -689,7 +695,8 @@ function mpBars(cs,get){
   const row=c=>{const a=get(c.act),m=get(c.mpp),r=a/m,st=status("mp",r),W=x=>Math.min(x,1.2)/1.2*100;
     return`<div class="pb ${st}"><button class="pb-n" type="button" data-cab="${c.n}">${c.n}</button><div class="pb-t" title="${c.n}: ${a} dari MPP ${m} (${pc(r,0)})"><span class="pb-band"></span><span class="pb-f" style="width:${W(r).toFixed(1)}%"></span><span class="pb-100"></span></div><span class="pb-v">${stMini(st)||'<i class="sti-sp"></i>'}<b>${a}</b> / ${m}<em>${pc(r,0)}</em></span></div>`};
   let h=`<div class="pb pb-axis"><span></span><div class="pb-ax"><span style="left:0">0</span><span style="left:${(100/120*100).toFixed(2)}%">100%</span><span style="left:100%">120%</span></div><span class="pb-vh">Aktual / MPP</span></div>`;
-  if(!S.area)[1,2,3].forEach(a=>{h+=`<div class="pb-area">Area ${a}</div>`+cs.filter(c=>c.a===a).map(row).join("")});else h+=cs.map(row).join("");
+  const rs=c=>get(c.act)/get(c.mpp),srt=l=>l.slice().sort((x,y)=>rs(y)-rs(x));
+  if(!S.area)[1,2,3].forEach(a=>{h+=`<div class="pb-area">Area ${a}</div>`+srt(cs.filter(c=>c.a===a)).map(row).join("")});else h+=srt(cs).map(row).join("");
   document.getElementById("mpBars").innerHTML=h;
 }
 const bands=cs=>{if(S.area)return null;return[1,2,3].map(a=>({label:"Area "+a,n:cs.filter(c=>c.a===a).length}))};
@@ -754,16 +761,16 @@ function cardsData(){
   const mpNow=sum(cs.map(c=>mpTot(c.act)))+(S.area?0:HO.act[LAST]);
   const mpPrev=sum(cs.map(c=>mpTot(c.mpH[LAST-1])))+(S.area?0:HO.act[LAST-1]);
   const mpp=sum(cs.map(c=>mpTot(c.mpp)))+(S.area?0:HO.mpp);
-  const lbNow=S.per==="m"?lbRatio(cs,LAST):lbYtd(cs), lbPrev=lbRatio(cs,LAST-1);
+  const lbNow=S.per==="m"?lbRatio(cs,LAST):lbYtd(cs), lbPrev=S.per==="m"?lbRatio(cs,LAST-1):sum(cs.map(c=>c.fy25.rasioLembur*sum(c.gp)))/sum(cs.map(c=>sum(c.gp)));
   const toN=sum(cs.map(c=>toCount(c,"total","m"))),toP=sum(cs.map(c=>sum(["sales","afs","admin"].map(k=>c.to[k][LAST-1]))));
   const toY=sum(cs.map(c=>toCount(c,"total","y")))/sum(cs.map(c=>toHead(c,"total","y")));
   const prw=(i)=>sum(cs.map(c=>c.prS[i]*c.act.sales))/sum(cs.map(c=>c.act.sales));
-  const prNow=S.per==="m"?prw(LAST):sum(MON.map((_,i)=>prw(i)))/9, prPrev=prw(LAST-1);
+  const prNow=S.per==="m"?prw(LAST):sum(MON.map((_,i)=>prw(i)))/9, prPrev=S.per==="m"?prw(LAST-1):sum(cs.map(c=>c.fy25.prodSales*c.act.sales))/sum(cs.map(c=>c.act.sales));
   const gpw=k=>sum(cs.map(c=>c.gpec.total*mpTot(c.act)))/sum(cs.map(c=>mpTot(c.act)));
   const gpNow=gpw(),gpPrev=sum(cs.map(c=>c.gpPrev.total*mpTot(c.act)))/sum(cs.map(c=>mpTot(c.act)));
   return{mpNow,mpPrev,mpp,lbNow,lbPrev,toN,toP,toY,prNow,prPrev,gpNow,gpPrev};
 }
-function deltaHtml(d,unit,goodDir,dec){if(Math.abs(d)<1e-9)return'<span class="delta flat">tetap dari Agustus</span>';const up=d>0;const cls=(up?"up-":"down-")+((up===(goodDir==="up"))?"good":"bad");return`<span class="delta ${cls}">${up?"▲":"▼"} ${nf(Math.abs(d),dec)}${unit} dari Agustus</span>`}
+function deltaHtml(d,unit,goodDir,dec,vs){vs=vs||"Agustus";if(Math.abs(d)<1e-9)return`<span class="delta flat">tetap dari ${vs}</span>`;const up=d>0;const cls=(up?"up-":"down-")+((up===(goodDir==="up"))?"good":"bad");return`<span class="delta ${cls}">${up?"▲":"▼"} ${nf(Math.abs(d),dec)}${unit} dari ${vs}</span>`}
 function renderSummary(){
   const d=cardsData(),cs=scope();
   const mpR=d.mpNow/d.mpp, sMp=status("mp",mpR), sLb=status("lb",d.lbNow), sTo=status("to",d.toY);
@@ -772,9 +779,9 @@ function renderSummary(){
   const per=S.per==="m";
   const cards=[
     {go:"manpower",sk:"mp",lbl:"Manpower",val:nf(d.mpNow,0),u:"orang",sub:`${pc(mpR,0)} dari MPP ${nf(d.mpp,0)}`,dl:deltaHtml(d.mpNow-d.mpPrev," orang","up",0),st:sMp},
-    {go:"lembur",sk:"lb",lbl:"Rasio lembur"+(per?"":" YTD"),val:nf(d.lbNow*100,1),u:"%",sub:"Lembur dibanding gaji pokok",dl:deltaHtml((d.lbNow-d.lbPrev)*100," poin","down",1),st:sLb},
+    {go:"lembur",sk:"lb",lbl:"Rasio lembur"+(per?"":" YTD"),val:nf(d.lbNow*100,1),u:"%",sub:"Lembur dibanding gaji pokok",dl:deltaHtml((d.lbNow-d.lbPrev)*100," poin","down",1,per?"":"FY 2025"),st:sLb},
     {go:"turnover",sk:"to",lbl:"Turnover YTD",val:nf(d.toY*100,1),u:"%",sub:`${nf(d.toN,0)} orang keluar bulan ini`,dl:deltaHtml(d.toN-d.toP," orang","down",0),st:sTo},
-    {go:"produktivitas",sk:"pr",lbl:"Produktivitas sales"+(per?"":" YTD"),val:nf(d.prNow,2),u:"unit/orang",sub:"Unit retail per salesperson",dl:deltaHtml(d.prNow-d.prPrev,"","up",2),st:sPr},
+    {go:"produktivitas",sk:"pr",lbl:"Produktivitas sales"+(per?"":" YTD"),val:nf(d.prNow,2),u:"unit/orang",sub:"Unit retail per salesperson",dl:deltaHtml(d.prNow-d.prPrev,"","up",2,per?"":"FY 2025"),st:sPr},
     {go:"rupiah",sk:"gp",lbl:"GP/EC total YTD",val:"Rp"+nf(d.gpNow,2),u:"",sub:"Laba kotor per Rp1 biaya orang",dl:deltaHtml(d.gpNow-d.gpPrev,"","up",2),st:sGp}];
   document.getElementById("cards").innerHTML=cards.map(c=>`<button class="card ${c.st}" type="button" data-go="${c.go}"><span class="lbl">${icon(c.go)}${c.lbl}</span><span class="val">${c.val}<small>${c.u}</small></span><span class="sub">${c.sub}</span><span class="spk" data-s="${c.sk}"></span><span class="foot">${c.dl}${pill(c.st)}</span></button>`).join("");
   drawSparks();
@@ -1033,8 +1040,8 @@ function renderChanges(){
   draw("cLbDelta",{data:{labels:rows.map(r=>r.c.n),datasets:[barDs(rows.map(r=>r.d),rows.map(r=>r.d>0?css("--bad"):css("--good")),{label:"Perubahan",borderRadius:4,borderSkipped:false,maxBarThickness:16})]},options:o});
   // lembur departemen HO
   const mx=Math.max(...DEPT.map(d=>Math.max(d[1],d[2])))*1.08;
-  document.getElementById("tDept").innerHTML="<thead><tr><th>Departemen</th><th class='r'>Agustus</th><th class='dbh'>Agustus ke September</th><th class='r'>September</th><th class='r'>Perubahan</th><th>Alasan lembur</th></tr></thead><tbody>"+
-    DEPT.slice().sort((a,b)=>(b[2]-b[1])-(a[2]-a[1])).map(d=>{const st=d[2]>d[1]?"bad":"good";return`<tr><td class="dn">${d[0]}</td><td class="num mu">${nf(d[1],1)}%</td><td class="dbc">${dumbbell(d[1],d[2],v=>nf(v,1)+"%",st,170,[0,mx])}</td><td class="num sep">${nf(d[2],1)}%</td><td class="num chg" style="color:var(--${st}-ink)">${d[2]>d[1]?"▲":"▼"} ${nf(Math.abs(d[2]-d[1]),1)} poin</td><td class="why">${d[3]}</td></tr>`}).join("")+"</tbody>";
+  document.getElementById("tDept").innerHTML="<thead><tr><th>Departemen</th><th class='r'>Agustus</th><th class='dbh'>Agustus ke September</th><th class='r'>September</th><th class='r'>Δ</th><th>Alasan lembur</th></tr></thead><tbody>"+
+    DEPT.slice().sort((a,b)=>(b[2]/b[1])-(a[2]/a[1])).map(d=>{const st=d[2]>d[1]?"bad":"good";return`<tr><td class="dn">${d[0]}</td><td class="num mu">${nf(d[1],1)}%</td><td class="dbc">${dumbbell(d[1],d[2],v=>nf(v,1)+"%",st,170,[0,mx])}</td><td class="num sep">${nf(d[2],1)}%</td><td class="num chg" style="color:var(--${st}-ink)">${d[2]>d[1]?"↑ +":"↓ "}${nf((d[2]/d[1]-1)*100,0)}%</td><td class="why">${d[3]}</td></tr>`}).join("")+"</tbody>";
 }
 function renderTodo(){
   const cs=scope(),items=[];
