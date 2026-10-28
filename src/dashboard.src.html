@@ -175,6 +175,34 @@ table.heat{border-collapse:separate;border-spacing:0;width:100%;min-width:720px;
 .heat .atag{margin-left:8px;font-size:10.5px;font-weight:600;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);border-radius:99px;padding:1px 7px}
 .heat .cntb{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:var(--bad);color:#fff;font-size:11px}
 
+/* Batang progres MP vs MPP */
+.pbleg{margin:-2px 0 10px}
+.pbleg i.band{background:var(--good-bg);border:1px solid color-mix(in srgb,var(--good) 45%,transparent)}
+.pbleg i.tick{width:2px;height:13px;border-radius:0;background:var(--ink)}
+.pbars{display:flex;flex-direction:column}
+.pb{display:grid;grid-template-columns:118px minmax(0,1fr) 128px;align-items:center;gap:10px;padding:3px 0}
+.pb-n{border:0;background:none;padding:0;text-align:right;font-size:12px;font-weight:600;color:var(--ink);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pb-n:hover{color:var(--accent-ink);text-decoration:underline}
+.pb-t{position:relative;height:16px;border-radius:4px;background:var(--surface-2)}
+.pb-band{position:absolute;top:-3px;bottom:-3px;left:79.17%;width:8.33%;background:var(--good-bg);border-left:1px solid color-mix(in srgb,var(--good) 35%,transparent);border-right:1px solid color-mix(in srgb,var(--good) 35%,transparent)}
+.pb-f{position:absolute;left:0;top:2px;bottom:2px;border-radius:0 4px 4px 0;background:var(--bar)}
+.pb.warn .pb-f{background:var(--warn)} .pb.bad .pb-f{background:var(--bad)}
+.pb-100{position:absolute;top:-4px;bottom:-4px;left:83.33%;width:2px;margin-left:-1px;background:var(--ink)}
+.pb-v{font-size:12px;color:var(--muted);white-space:nowrap}
+.pb-v b{color:var(--ink);font-weight:700}
+.pb-v em{font-style:normal;font-weight:700;color:var(--ink);margin-left:8px}
+.pb.warn .pb-v em{color:var(--warn-ink)} .pb.bad .pb-v em{color:var(--bad-ink)}
+.pb-v .sti-sp{display:inline-block;width:15px}
+.pb-v .sti{width:11px;height:11px;margin-right:4px;vertical-align:-1px}
+.pb-area{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:10px 0 2px 0;border-bottom:1px solid var(--line);margin-bottom:3px}
+.pb-axis{padding:0 0 2px}
+.pb-ax{position:relative;height:14px;font-size:10.5px;color:var(--muted)}
+.pb-ax span{position:absolute;transform:translateX(-50%)}
+.pb-ax span:first-child{transform:none}
+.pb-ax span:last-child{transform:translateX(-100%)}
+.pb-vh{font-size:10.5px;color:var(--muted);font-weight:600}
+.chart.hcab{height:640px}
+
 /* Panel kategori */
 .panel-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
 .sub-card{border:1px solid var(--line);border-radius:8px;padding:12px;min-width:0;background:var(--surface)}
@@ -307,6 +335,9 @@ table.dept{min-width:760px}
   .fab{display:flex;align-items:center;gap:8px;position:fixed;z-index:44;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));border:0;border-radius:99px;background:var(--navy);color:var(--surface);padding:12px 18px;font-weight:700;box-shadow:0 6px 20px rgb(0 0 0 / .3);cursor:pointer}
 }
 @media (max-width:640px){
+  .pb{grid-template-columns:84px minmax(0,1fr) 92px;gap:7px}
+  .pb-n{font-size:11.5px}
+  .pb-v{font-size:11px} .pb-v em{margin-left:4px}
   table.dept{min-width:0}
   table.dept thead{display:none}
   table.dept tr{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-areas:"dn dn dn dn" "a db s ch" "why why why why";align-items:center;column-gap:6px;padding:10px 0;border-bottom:1px solid var(--line)}
@@ -464,8 +495,8 @@ table.dept{min-width:760px}
       </div>
       <div class="sub-card">
         <div class="sub-head"><h3>Manpower per cabang dibanding MPP</h3><div class="tabs" data-k="mpC"><button data-v="total" aria-pressed="true">Total</button><button data-v="sales" aria-pressed="false">Sales</button><button data-v="afs" aria-pressed="false">Aftersales</button><button data-v="admin" aria-pressed="false">Admin</button><button data-v="os" aria-pressed="false">OS</button></div></div>
-        <div class="cscroll"><div class="chart wide"><canvas id="cMpCab"></canvas></div></div>
-        <p class="note">Batang: jumlah aktual. Garis pendek: MPP cabang. Kuning: 90 sampai 95% atau 105 sampai 110% dari MPP. Merah: di luar itu.</p>
+        <div class="legend pbleg"><span><i class="band"></i>Rentang aman 95 sampai 105% MPP</span><span><i class="tick"></i>100% MPP</span><span><i style="background:var(--warn)"></i>90 sampai 95% atau 105 sampai 110%</span><span><i style="background:var(--bad)"></i>Di luar itu</span></div>
+        <div class="pbars" id="mpBars"></div>
       </div>
     </div>
   </section>
@@ -481,7 +512,7 @@ table.dept{min-width:760px}
       </div>
       <div class="sub-card">
         <div class="sub-head"><h3>Rasio lembur per cabang</h3></div>
-        <div class="cscroll"><div class="chart wide"><canvas id="cLbCab"></canvas></div></div>
+        <div class="chart hcab"><canvas id="cLbCab"></canvas></div>
         <p class="note">Garis merah: batas 10%. Garis kuning: mulai waspada 9,5%.</p>
       </div>
     </div>
@@ -499,7 +530,7 @@ table.dept{min-width:760px}
       </div>
       <div class="sub-card">
         <div class="sub-head"><h3>Turnover per cabang</h3><div class="tabs" data-k="toC"><button data-v="total" aria-pressed="true">Total</button><button data-v="sales" aria-pressed="false">Sales</button><button data-v="afs" aria-pressed="false">Aftersales</button><button data-v="admin" aria-pressed="false">Admin</button></div></div>
-        <div class="cscroll"><div class="chart wide"><canvas id="cToCab"></canvas></div></div>
+        <div class="chart hcab"><canvas id="cToCab"></canvas></div>
         <p class="note" id="toCabNote"></p>
       </div>
     </div>
@@ -517,7 +548,7 @@ table.dept{min-width:760px}
       </div>
       <div class="sub-card">
         <div class="sub-head"><h3>Produktivitas per cabang</h3><div class="tabs" data-k="prC"><button data-v="sales" aria-pressed="true">Salesperson</button><button data-v="tech" aria-pressed="false">Teknisi GR</button></div></div>
-        <div class="cscroll"><div class="chart wide"><canvas id="cPrCab"></canvas></div></div>
+        <div class="chart hcab"><canvas id="cPrCab"></canvas></div>
         <p class="note">Garis abu-abu: median 24 cabang.</p>
         <span class="flag" id="prFlag" hidden>Data Aftersales September belum masuk. Yang ditampilkan data Agustus.</span>
       </div>
@@ -538,7 +569,7 @@ table.dept{min-width:760px}
       </div>
       <div class="sub-card">
         <div class="sub-head"><h3>Laba kotor per Rp1 biaya orang (GP/EC) per cabang, YTD</h3><div class="tabs" data-k="gpC"><button data-v="total" aria-pressed="true">Total</button><button data-v="sales" aria-pressed="false">Salesperson</button><button data-v="sa" aria-pressed="false">SA GR</button><button data-v="tech" aria-pressed="false">Teknisi GR</button></div></div>
-        <div class="cscroll"><div class="chart wide"><canvas id="cGpCab"></canvas></div></div>
+        <div class="chart hcab"><canvas id="cGpCab"></canvas></div>
         <p class="note">Hijau: di atas median. Kuning: sampai 10% di bawah median. Merah: lebih dari 10% di bawah median. GP/EC selalu memakai YTD agar adil antar cabang.</p>
       </div>
     </div>
@@ -609,7 +640,7 @@ function css(n){return getComputedStyle(document.documentElement).getPropertyVal
 
 /* ---------- chart helpers ---------- */
 const charts={},META={};
-const refLines={id:"refLines",afterDatasetsDraw(ch,_,o){const L=(META[ch.canvas.id]||{}).ref;if(!L)return;const{ctx,chartArea:a,scales:{y}}=ch;L.forEach(r=>{const py=y.getPixelForValue(r.value);if(py<a.top||py>a.bottom)return;ctx.save();ctx.strokeStyle=r.color;ctx.lineWidth=1.5;ctx.setLineDash(r.dash||[]);ctx.beginPath();ctx.moveTo(a.left,py);ctx.lineTo(a.right,py);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=r.color;ctx.font="600 11px "+css("--f-body");ctx.textAlign="right";ctx.fillText(r.label,a.right-2,py-4);ctx.restore()})}};
+const refLines={id:"refLines",afterDatasetsDraw(ch,_,o){const L=(META[ch.canvas.id]||{}).ref;if(!L)return;const{ctx,chartArea:a,scales:{x,y}}=ch;if(ch.options.indexAxis==="y"){L.forEach(r=>{if(!r.label&&r.hideH)return;const px=x.getPixelForValue(r.value);if(px<a.left||px>a.right)return;ctx.save();ctx.strokeStyle=r.color;ctx.lineWidth=1.5;ctx.setLineDash(r.dash||[]);ctx.beginPath();ctx.moveTo(px,a.top);ctx.lineTo(px,a.bottom);ctx.stroke();ctx.setLineDash([]);if(r.label){ctx.fillStyle=r.color;ctx.font="600 11px "+css("--f-body");ctx.textAlign="center";ctx.fillText(r.label,px,a.top-6)}ctx.restore()});return}L.forEach(r=>{const py=y.getPixelForValue(r.value);if(py<a.top||py>a.bottom)return;ctx.save();ctx.strokeStyle=r.color;ctx.lineWidth=1.5;ctx.setLineDash(r.dash||[]);ctx.beginPath();ctx.moveTo(a.left,py);ctx.lineTo(a.right,py);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=r.color;ctx.font="600 11px "+css("--f-body");ctx.textAlign=r.align==="left"?"left":"right";ctx.fillText(r.label,r.align==="left"?a.left+4:a.right-2,py-4);ctx.restore()})}};
 const areaBands={id:"areaBands",beforeDatasetsDraw(ch){const B=(META[ch.canvas.id]||{}).bands;if(!B)return;const{ctx,chartArea:a,scales:{x}}=ch;let start=0;B.forEach((g,gi)=>{const end=start+g.n-1;const x0=x.getPixelForValue(start)-x.width/ch.data.labels.length/2,x1=x.getPixelForValue(end)+x.width/ch.data.labels.length/2;if(gi%2===0){ctx.save();ctx.fillStyle=css("--surface-2");ctx.fillRect(x0,a.top-20,x1-x0,a.bottom-a.top+20);ctx.restore()}ctx.save();ctx.fillStyle=css("--muted");ctx.font="700 10.5px "+css("--f-body");ctx.textAlign="center";ctx.fillText(g.label.toUpperCase(),(x0+x1)/2,a.top-10);ctx.restore();start=end+1})}};
 const valueLabels={id:"valueLabels",afterDatasetsDraw(ch){const m=(META[ch.canvas.id]||{}).labels;if(!m)return;const{ctx}=ch;ctx.save();ctx.textAlign="center";
   ch.data.datasets.forEach((ds,di)=>{if(m.skip&&m.skip(di))return;const meta=ch.getDatasetMeta(di);if(meta.hidden)return;
@@ -619,12 +650,12 @@ const valueLabels={id:"valueLabels",afterDatasetsDraw(ch){const m=(META[ch.canva
       else if(isLine){y=el.y-9}else{y=v<0?el.y+13:el.y-5}
       if(ch.options.indexAxis==="y"&&!isLine){ctx.textAlign=v<0?"right":"left";ctx.fillStyle=col;ctx.fillText(t,el.x+(v<0?-6:6),el.y+4);ctx.textAlign="center";return}
       ctx.fillStyle=col;ctx.fillText(t,el.x,y)})});
-  if(m.totals){const meta=ch.getDatasetMeta(ch.data.datasets.length-1);ctx.font="700 11.5px "+css("--f-body");ctx.fillStyle=css("--ink");meta.data.forEach((el,i)=>{ctx.fillText(m.totals[i],el.x,el.y-6)})}
+  if(m.totals){const meta=ch.getDatasetMeta(ch.data.datasets.length-1);ctx.font="700 11.5px "+css("--f-body");ctx.fillStyle=css("--ink");ctx.strokeStyle=css("--surface");ctx.lineWidth=4;ctx.lineJoin="round";meta.data.forEach((el,i)=>{ctx.strokeText(m.totals[i],el.x,el.y-6);ctx.fillText(m.totals[i],el.x,el.y-6)})}
   ctx.restore()}};
 Chart.register(refLines,areaBands,valueLabels);
 function baseOpts(o){
   const ink=css("--muted"),grid=css("--grid");
-  return Object.assign({responsive:true,maintainAspectRatio:false,animation:{duration:250},
+  return Object.assign({locale:"id-ID",responsive:true,maintainAspectRatio:false,animation:{duration:250},
     interaction:{mode:"index",intersect:false},
     layout:{padding:{top:22}},
     plugins:{legend:{display:false},tooltip:{backgroundColor:css("--surface"),titleColor:css("--ink"),bodyColor:css("--ink"),borderColor:css("--line"),borderWidth:1,padding:10,titleFont:{family:css("--f-body"),weight:"700"},bodyFont:{family:css("--f-body")}}},
@@ -633,6 +664,34 @@ function baseOpts(o){
 }
 function draw(id,cfg){if(charts[id])charts[id].destroy();const pl=cfg.options.plugins;META[id]={ref:pl.refLines,bands:pl.areaBands,labels:pl.valueLabels};delete pl.refLines;delete pl.areaBands;delete pl.valueLabels;if(META[id].bands)cfg.options.layout={padding:{top:30}};charts[id]=new Chart(document.getElementById(id),cfg)}
 const barDs=(data,color,extra)=>Object.assign({type:"bar",data,backgroundColor:color,borderRadius:{topLeft:4,topRight:4},borderSkipped:"bottom",maxBarThickness:28,categoryPercentage:.8,barPercentage:.9},extra||{});
+
+/* batang mendatar per cabang, dikelompokkan per area */
+function hcab(id,cs,datasets,o){
+  const idx=[],labels=[];
+  if(!S.area)[1,2,3].forEach(a=>{idx.push(-1);labels.push("AREA "+a);cs.forEach((c,j)=>{if(c.a===a){idx.push(j);labels.push(c.n)}})});
+  else cs.forEach((c,j)=>{idx.push(j);labels.push(c.n)});
+  datasets.forEach(d=>{d.data=idx.map(j=>j<0?null:d.data[j]);if(Array.isArray(d.backgroundColor))d.backgroundColor=idx.map(j=>j<0?"transparent":d.backgroundColor[j]);d.maxBarThickness=16;d.borderRadius=4;d.borderSkipped="start";d.categoryPercentage=.82;d.barPercentage=.9});
+  const pl=o.plugins;delete pl.areaBands;
+  if(pl.valueLabels){const f=pl.valueLabels.fmt;pl.valueLabels.fmt=(v,di,i)=>f(v,di,idx[i])}
+  const tt=pl.tooltip;if(tt.callbacks&&tt.callbacks.label){const L=tt.callbacks.label;tt.callbacks.label=it=>L(Object.assign({},it,{dataIndex:idx[it.dataIndex]}))}
+  tt.filter=it=>idx[it.dataIndex]>=0;
+  const v=o.scales.y,c=o.scales.x,ink=css("--ink"),mu=css("--muted"),ff=css("--f-body");
+  o.indexAxis="y";
+  o.scales={x:Object.assign({},v,{position:"bottom",ticks:Object.assign({},v.ticks,{maxRotation:0,autoSkip:true})}),
+    y:Object.assign({},c,{grid:{display:false},border:{display:false},ticks:{autoSkip:false,color:ctx=>idx[ctx.index]<0?mu:ink,font:ctx=>idx[ctx.index]<0?{family:ff,size:10.5,weight:"700"}:{family:ff,size:11.5,weight:"600"}}})};
+  o.layout={padding:{top:pl.refLines?14:2,right:52,left:2,bottom:2}};
+  o.interaction={mode:"nearest",axis:"y",intersect:false};
+  document.getElementById(id).parentElement.style.height=(labels.length*23+40)+"px";
+  draw(id,{data:{labels,datasets},options:o});
+  if(charts[id])charts[id].options.layout=o.layout,charts[id].update("none");
+}
+function mpBars(cs,get){
+  const row=c=>{const a=get(c.act),m=get(c.mpp),r=a/m,st=status("mp",r),W=x=>Math.min(x,1.2)/1.2*100;
+    return`<div class="pb ${st}"><button class="pb-n" type="button" data-cab="${c.n}">${c.n}</button><div class="pb-t" title="${c.n}: ${a} dari MPP ${m} (${pc(r,0)})"><span class="pb-band"></span><span class="pb-f" style="width:${W(r).toFixed(1)}%"></span><span class="pb-100"></span></div><span class="pb-v">${stMini(st)||'<i class="sti-sp"></i>'}<b>${a}</b> / ${m}<em>${pc(r,0)}</em></span></div>`};
+  let h=`<div class="pb pb-axis"><span></span><div class="pb-ax"><span style="left:0">0</span><span style="left:${(100/120*100).toFixed(2)}%">100%</span><span style="left:100%">120%</span></div><span class="pb-vh">Aktual / MPP</span></div>`;
+  if(!S.area)[1,2,3].forEach(a=>{h+=`<div class="pb-area">Area ${a}</div>`+cs.filter(c=>c.a===a).map(row).join("")});else h+=cs.map(row).join("");
+  document.getElementById("mpBars").innerHTML=h;
+}
 const bands=cs=>{if(S.area)return null;return[1,2,3].map(a=>({label:"Area "+a,n:cs.filter(c=>c.a===a).length}))};
 
 /* ---------- ikon dan penanda status ---------- */
@@ -830,16 +889,12 @@ function renderMp(){
   else{labels=MONL;data=k.map(x=>MON.map((_,i)=>x==="ho"?(S.area?0:HO.act[i]):sum(cs.map(c=>c.mpH[i][x]))))}
   const ds=k.map((x,i)=>barDs(data[i],col[i],{label:lab[x],stack:"a",borderRadius:i===4?{topLeft:4,topRight:4}:0,borderColor:css("--surface"),borderWidth:{top:i?1:0}}));
   const tots=labels.map((_,i)=>nf(sum(data.map(d=>d[i])),0));
-  const o=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>v?nf(v,0):"",inside:true,size:10,totals:tots},refLines:mpp?[{value:mpp,label:"MPP 2026 "+nf(mpp,0),color:css("--gold"),dash:[6,4]}]:null,tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{footer:it=>"Total "+nf(sum(it.map(x=>x.raw)),0)+" orang"}})})});
+  const o=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>v?nf(v,0):"",inside:true,size:10,totals:tots},refLines:mpp?[{value:mpp,label:"MPP 2026 "+nf(mpp,0),color:css("--gold-ink"),dash:[6,4],align:"left"}]:null,tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{footer:it=>"Total "+nf(sum(it.map(x=>x.raw)),0)+" orang"}})})});
   o.scales.x.stacked=true;o.scales.y.stacked=true;
   draw("cMpTrend",{data:{labels,datasets:ds},options:o});
   // per cabang
   const key=S.mpC,get=(o)=>key==="total"?mpTot(o):o[key];
-  const ok=css("--bar"),mk=css("--ink");
-  const act=cs.map(c=>get(c.act)),pl=cs.map(c=>get(c.mpp));
-  const colors=cs.map(c=>{const s=status("mp",get(c.act)/get(c.mpp));return s==="bad"?css("--bad"):(s==="warn"?css("--warn"):ok)});
-  const o2=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:(v,di,i)=>v+"/"+pl[i],skip:di=>di===1,size:10},areaBands:bands(cs),tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>it.datasetIndex?` MPP ${it.raw}`:` Aktual ${it.raw} (${pc(it.raw/pl[it.dataIndex],0)} dari MPP)`}})})});
-  draw("cMpCab",{data:{labels:cs.map(c=>c.n),datasets:[barDs(act,colors,{label:"Aktual"}),{type:"line",label:"MPP",data:pl,showLine:false,pointStyle:"line",pointRadius:11,pointBorderWidth:3,pointBorderColor:mk,pointHoverRadius:12}]},options:o2});
+  mpBars(cs,get);
   const cnt=cs.filter(c=>mpTot(c.act)<mpTot(c.mpp)*.95).sort((a,b)=>mpTot(a.act)/mpTot(a.mpp)-mpTot(b.act)/mpTot(b.mpp));
   const d=cardsData();
   document.getElementById("ansMp").innerHTML=`${scopeName()} memiliki <b>${nf(d.mpNow,0)} orang</b>, ${pc(d.mpNow/d.mpp,0)} dari MPP. ${cnt.length?`<b>${cnt.length} cabang</b> kurang dari 95% MPP, paling rendah ${cnt.slice(0,2).map(c=>c.n+" ("+pc(mpTot(c.act)/mpTot(c.mpp),0)+")").join(" dan ")}.`:"Semua cabang di atas 95% MPP."}`;
@@ -848,14 +903,14 @@ function renderLb(){
   const cs=scope();let gp,lb,ttl;
   if(S.lbT==="nrm"){gp=NRM.gp;lb=NRM.lb;ttl="NRM (Head Office)"}else{gp=MON.map((_,i)=>sum(cs.map(c=>c.gp[i])));lb=MON.map((_,i)=>sum(cs.map(c=>c.lb[i])));ttl=scopeName()}
   const r=lb.map((x,i)=>x/gp[i]*100);
-  const o=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,1)+"%"},refLines:[{value:10,label:"Batas 10%",color:css("--bad"),dash:[5,4]},{value:9.5,label:"9,5%",color:css("--warn"),dash:[2,4]}],tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>` Rasio ${nf(it.raw,1)}%`,afterLabel:it=>[` Gaji pokok Rp${nf(gp[it.dataIndex],0)} juta`,` Lembur Rp${nf(lb[it.dataIndex],1)} juta`]}})})});
-  o.scales.y.suggestedMax=12;o.scales.y.ticks.callback=v=>v+"%";
+  const o=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,1)+"%"},refLines:[{value:10,label:"Batas 10%",color:css("--bad"),dash:[5,4]},{value:9.5,label:"",color:css("--warn"),dash:[2,4]}],tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>` Rasio ${nf(it.raw,1)}%`,afterLabel:it=>[` Gaji pokok Rp${nf(gp[it.dataIndex],0)} juta`,` Lembur Rp${nf(lb[it.dataIndex],1)} juta`]}})})});
+  o.scales.y.suggestedMax=12;o.scales.y.ticks.callback=v=>nf(v,v%1?1:0)+"%";
   document.getElementById("tLbTrend").innerHTML="<thead><tr><th></th>"+MONL.map(m=>`<th>${m}</th>`).join("")+"</tr></thead><tbody><tr><td>Gaji pokok (juta)</td>"+gp.map(x=>`<td>${nf(x,0)}</td>`).join("")+"</tr><tr><td>Lembur (juta)</td>"+lb.map(x=>`<td>${nf(x,1)}</td>`).join("")+"</tr></tbody>";
   draw("cLbTrend",{data:{labels:MONL,datasets:[{type:"line",label:ttl,data:r,borderColor:css("--bar"),backgroundColor:css("--bar"),borderWidth:2,pointRadius:4,pointHoverRadius:6,tension:.25}]},options:o});
   const v=cs.map(c=>cLb(c)*100),cols=v.map(x=>x>10?css("--bad"):(x>=9.5?css("--warn"):css("--bar")));
   const o2=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,1),size:10},areaBands:bands(cs),refLines:[{value:10,label:"10%",color:css("--bad"),dash:[5,4]},{value:9.5,label:"",color:css("--warn"),dash:[2,4]}],tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>{const c=cs[it.dataIndex];return[` Rasio ${nf(it.raw,1)}%`,` Gaji pokok Rp${nf(S.per==="m"?c.gp[LAST]:sum(c.gp),0)} juta`,` Lembur Rp${nf(S.per==="m"?c.lb[LAST]:sum(c.lb),1)} juta`]}}})})});
-  o2.scales.y.ticks.callback=x=>x+"%";o2.scales.y.suggestedMax=13;
-  draw("cLbCab",{data:{labels:cs.map(c=>c.n),datasets:[barDs(v,cols,{label:"Rasio lembur"})]},options:o2});
+  o2.scales.y.ticks.callback=x=>nf(x,x%1?1:0)+"%";o2.scales.y.suggestedMax=13;
+  o2.scales.y.suggestedMax=13;hcab("cLbCab",cs,[barDs(v,cols,{label:"Rasio lembur"})],o2);
   const over=cs.filter(c=>cLb(c)>.10).sort((a,b)=>cLb(b)-cLb(a));const now=lbRatio(cs,LAST),prev=lbRatio(cs,LAST-1);
   document.getElementById("ansLb").innerHTML=`Rasio lembur ${scopeName()} bulan September <b>${pc(now)}</b>, ${now>prev?"naik":"turun"} ${nf(Math.abs(now-prev)*100,1)} poin dari Agustus. ${over.length?`<b>${over.length} cabang</b> di atas batas 10%, tertinggi ${over.slice(0,3).map(c=>c.n+" ("+pc(cLb(c))+")").join(", ")}.`:"Tidak ada cabang di atas batas 10%."}`;
 
@@ -865,12 +920,12 @@ function renderTo(){
   if(S.toT==="y"){labels=FY.slice(1);const ytd=sum(cs.map(c=>toCount(c,f,"y")))/sum(cs.map(c=>toHead(c,f,"y")))*100;pct=YR.to[f].slice(1).concat([ytd]);cnt=pct.map((p,i)=>i===pct.length-1?sum(cs.map(c=>toCount(c,f,"y"))):null)}
   else{labels=MONL;cnt=MON.map((_,i)=>sum(cs.map(c=>c.to[f][i])));pct=cnt.map((n,i)=>n/(sum(cs.map(c=>c.mpH[i][f])))*100)}
   const o=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:(v,di,i)=>nf(v,1)+"%"+(cnt[i]!=null?" ("+cnt[i]+")":"")},tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>` Turnover ${nf(it.raw,1)}%`+(cnt[it.dataIndex]!=null?` (${cnt[it.dataIndex]} orang)`:"")}})})});
-  o.scales.y.ticks.callback=v=>v+"%";
+  o.scales.y.ticks.callback=v=>nf(v,v%1?1:0)+"%";
   draw("cToTrend",{data:{labels,datasets:[barDs(pct,pct.map((_,i)=>i===pct.length-1&&S.toT==="y"?css("--blue"):css("--bar-soft")),{label:"Turnover"})]},options:o});
   const k=S.toC,v=cs.map(c=>toPct(c,k,S.per)*100),n=cs.map(c=>toCount(c,k,S.per));
   const o2=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:(v,di,i)=>nf(v,1),size:10},areaBands:bands(cs),tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>` ${nf(it.raw,1)}% (${n[it.dataIndex]} orang keluar)`}})})});
-  o2.scales.y.ticks.callback=x=>x+"%";
-  draw("cToCab",{data:{labels:cs.map(c=>c.n),datasets:[barDs(v,v.map(x=>S.per==="y"&&x>12?css("--bad"):css("--bar")),{label:"Turnover"})]},options:o2});
+  o2.scales.y.ticks.callback=x=>nf(x,x%1?1:0)+"%";
+  hcab("cToCab",cs,[barDs(v,v.map(x=>S.per==="y"&&x>12?css("--bad"):css("--bar")),{label:"Turnover"})],o2);
   document.getElementById("toCabNote").textContent=S.per==="m"?"Periode bulan ini: September 2026 saja.":"Periode YTD: Januari sampai September 2026. Merah: turnover di atas 12%.";
   const fs=["sales","afs","admin"].map(x=>({x,p:sum(cs.map(c=>toCount(c,x,"y")))/sum(cs.map(c=>toHead(c,x,"y")))})).sort((a,b)=>b.p-a.p);
   const nm={sales:"Salesperson",afs:"Technician",admin:"Admin"};const tc=cs.slice().sort((a,b)=>toCount(b,"total","y")-toCount(a,"total","y"))[0];
@@ -888,7 +943,7 @@ function renderPr(){
   const k=S.prC,vals=cs.map(c=>prVal(c,k,S.per)),md=median(CAB.map(c=>prVal(c,k,S.per)));
   const cols=vals.map(x=>{const s=status("rel",x,md);return s==="bad"?css("--bad"):(s==="warn"?css("--warn"):css("--bar"))});
   const o2=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,2),size:10},areaBands:bands(cs),refLines:[{value:md,label:"Median "+nf(md,2),color:css("--muted"),dash:[5,4]}],tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>` ${nf(it.raw,2)} (median ${nf(md,2)})`}})})});
-  draw("cPrCab",{data:{labels:cs.map(c=>c.n),datasets:[barDs(vals,cols,{label:"Produktivitas"})]},options:o2});
+  hcab("cPrCab",cs,[barDs(vals,cols,{label:"Produktivitas"})],o2);
   document.getElementById("prFlag").hidden=k!=="tech"||S.per!=="m";
   const lo=cs.slice().sort((a,b)=>prVal(a,"sales",S.per)-prVal(b,"sales",S.per)),hi=lo[lo.length-1];
   const tot=MON.map((_,i)=>sum(cs.map(c=>c.prS[i]*c.act.sales))/sum(cs.map(c=>c.act.sales)));
@@ -897,17 +952,17 @@ function renderPr(){
 function renderRp(){
   const t=YR.op[S.opT];const labels=["FY 2025","YTD 2026"].concat(MONL),v=[t.fy,sum(t.m)/9].concat(t.m);
   const o=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,2)},tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>` Rp${nf(it.raw,2)} laba operasional per Rp1 biaya orang`}})})});
-  o.scales.y.ticks.callback=x=>"Rp"+x;
+  o.scales.y.ticks.callback=x=>"Rp"+nf(x,x%1?1:0);
   draw("cOp",{data:{labels,datasets:[barDs(v,v.map((_,i)=>i<2?css("--blue"):css("--bar-soft")),{label:"OP/EC"})]},options:o});
   const cs=scope(),k=S.gpC,vals=cs.map(c=>c.gpec[k]),md=median(CAB.map(c=>c.gpec[k]));
   const cols=vals.map(x=>{const s=status("rel",x,md);return s==="bad"?css("--bad"):(s==="warn"?css("--warn"):css("--good"))});
   const o2=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,2),size:10},areaBands:bands(cs),refLines:[{value:md,label:"Median Rp"+nf(md,2),color:css("--muted"),dash:[5,4]}],tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>` Rp${nf(it.raw,2)} per Rp1 biaya orang (median Rp${nf(md,2)})`}})})});
-  o2.scales.y.ticks.callback=x=>"Rp"+x;
-  draw("cGpCab",{data:{labels:cs.map(c=>c.n),datasets:[barDs(vals,cols,{label:"GP/EC"})]},options:o2});
+  o2.scales.y.ticks.callback=x=>"Rp"+nf(x,x%1?1:0);
+  hcab("cGpCab",cs,[barDs(vals,cols,{label:"GP/EC"})],o2);
   const kk=S.gpT,mm=MON.map((_,i)=>sum(cs.map(c=>c.gpec[kk]*mpTot(c.act)))/sum(cs.map(c=>mpTot(c.act)))*(.86+.03*i+(i===2?-.12:0)+(i===3?-.06:0)));
   const ytd=sum(cs.map(c=>c.gpec[kk]*mpTot(c.act)))/sum(cs.map(c=>mpTot(c.act)));
   const o3=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,2)},refLines:[{value:ytd,label:"YTD Rp"+nf(ytd,2),color:css("--blue"),dash:[5,4]}],tooltip:Object.assign(baseOpts().plugins.tooltip,{callbacks:{label:it=>` Rp${nf(it.raw,2)}`}})})});
-  o3.scales.y.ticks.callback=x=>"Rp"+x;
+  o3.scales.y.ticks.callback=x=>"Rp"+nf(x,x%1?1:0);
   draw("cGpTrend",{data:{labels:MONL,datasets:[barDs(mm,css("--bar-soft"),{label:"GP/EC bulanan"})]},options:o3});
   const below=cs.filter(c=>c.gpec.total<median(CAB.map(x=>x.gpec.total))*.9);
   document.getElementById("ansRp").innerHTML=`Setiap Rp1 biaya orang ${scopeName()} menghasilkan <b>Rp${nf(ytd,2)}</b> laba kotor sepanjang 2026 (GP/EC ${({total:"total",sales:"salesperson",sa:"SA GR",tech:"teknisi GR"})[kk]}). ${below.length?`<b>${below.length} cabang</b> lebih dari 10% di bawah median untuk GP/EC total.`:""}`;
@@ -1036,7 +1091,7 @@ function openProfile(name){
   <div class="sub-card" style="margin-top:14px"><div class="sub-head"><h3>Rasio lembur per bulan</h3></div><div class="chart" style="height:200px"><canvas id="cPv1"></canvas></div></div>
   <div class="sub-card" style="margin-top:12px"><div class="sub-head"><h3>Manpower per kelompok dibanding MPP</h3></div><table class="mini"><thead><tr><th>Kelompok</th><th style="text-align:right">Aktual</th><th style="text-align:right">MPP</th><th style="text-align:right">Selisih</th></tr></thead><tbody>${["sales","afs","admin","os"].map(k=>`<tr><td>${({sales:"Sales",afs:"Aftersales",admin:"Admin",os:"Outsourcing"})[k]}</td><td class="num">${c.act[k]}</td><td class="num">${c.mpp[k]}</td><td class="num" style="color:${c.act[k]<c.mpp[k]?"var(--bad-ink)":"var(--good-ink)"}">${c.act[k]-c.mpp[k]>0?"+":""}${c.act[k]-c.mpp[k]}</td></tr>`).join("")}</tbody></table></div>`;
   document.getElementById("ov").hidden=false;
-  const o=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,1),size:10},refLines:[{value:10,label:"10%",color:css("--bad"),dash:[5,4]}]})});o.scales.y.ticks.callback=v=>v+"%";o.scales.y.suggestedMax=13;
+  const o=baseOpts({plugins:Object.assign(baseOpts().plugins,{valueLabels:{fmt:v=>nf(v,1),size:10},refLines:[{value:10,label:"10%",color:css("--bad"),dash:[5,4]}]})});o.scales.y.ticks.callback=v=>nf(v,v%1?1:0)+"%";o.scales.y.suggestedMax=13;
   draw("cPv1",{data:{labels:MONL,datasets:[{type:"line",data:c.lb.map((x,i)=>x/c.gp[i]*100),borderColor:css("--bar"),backgroundColor:css("--bar"),borderWidth:2,pointRadius:3,tension:.25}]},options:o});
   document.getElementById("pvClose").focus();
 }
